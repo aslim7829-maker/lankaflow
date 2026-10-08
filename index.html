@@ -1,157 +1,1477 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LANKA FLOW — Delivery Infrastructure for Sri Lankan Businesses</title>
-<meta name="description" content="Run your business deliveries without owning a delivery fleet. LANKA FLOW provides dispatch, tracking, COD and delivery infrastructure for Sri Lankan businesses.">
-<link rel="canonical" href="https://example.com/">
-<meta property="og:title" content="LANKA FLOW — Delivery infrastructure for businesses">
-<meta property="og:description" content="Your own delivery operation, without owning a fleet.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#07111F">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LANKA FLOW — Delivery Infrastructure for Businesses</title>
+  <meta name="description" content="LANKA FLOW gives Sri Lankan businesses the infrastructure to dispatch, track and manage deliveries without owning a delivery fleet." />
+  <meta name="theme-color" content="#050B14" />
+  <meta property="og:title" content="LANKA FLOW — Delivery Infrastructure for Businesses" />
+  <meta property="og:description" content="Your own delivery operation. Without owning a fleet." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#050B14;
+      --bg-2:#07111F;
+      --surface:#0B1524;
+      --surface-2:#0F1C2E;
+      --surface-3:#13243A;
+      --text:#F8FAFC;
+      --muted:#94A3B8;
+      --muted-2:#64748B;
+      --border:rgba(255,255,255,.09);
+      --border-strong:rgba(255,255,255,.15);
+      --primary:#3B82F6;
+      --primary-2:#60A5FA;
+      --cyan:#22D3EE;
+      --green:#22C55E;
+      --amber:#F59E0B;
+      --red:#EF4444;
+      --shadow:0 30px 100px rgba(0,0,0,.35);
+      --shadow-soft:0 15px 50px rgba(0,0,0,.18);
+      --radius-sm:10px;
+      --radius-md:16px;
+      --radius-lg:24px;
+      --radius-xl:30px;
+      --ease:cubic-bezier(.22,1,.36,1);
+      --container:1240px;
+    }
+    html[data-theme="light"]{
+      --bg:#F6F8FC;
+      --bg-2:#EEF3FA;
+      --surface:#FFFFFF;
+      --surface-2:#F8FAFC;
+      --surface-3:#EEF3FA;
+      --text:#0F172A;
+      --muted:#475569;
+      --muted-2:#64748B;
+      --border:rgba(15,23,42,.08);
+      --border-strong:rgba(15,23,42,.14);
+      --shadow:0 30px 100px rgba(15,23,42,.10);
+      --shadow-soft:0 15px 50px rgba(15,23,42,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(59,130,246,.10), transparent 28%),
+        radial-gradient(circle at 86% 20%, rgba(34,211,238,.08), transparent 24%),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.5;
+      overflow-x:hidden;
+      transition:background .35s ease,color .35s ease;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    ::selection{background:rgba(96,165,250,.28)}
+    .container{width:min(var(--container),calc(100% - 40px));margin:0 auto}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:9px;
+      font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--primary-2);
+    }
+    .eyebrow .dot{width:6px;height:6px;border-radius:999px;background:var(--cyan);box-shadow:0 0 18px rgba(34,211,238,.8)}
+    .section{position:relative;padding:120px 0}
+    .section-tight{padding:88px 0}
+    .headline{
+      margin:14px 0 0;
+      font-size:clamp(38px,5vw,68px);
+      line-height:1.04;
+      letter-spacing:-.045em;
+      font-weight:800;
+      max-width:880px;
+    }
+    .subhead{
+      margin:20px 0 0;
+      max-width:720px;
+      font-size:18px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    /* Top bar */
+    .announcement{
+      border-bottom:1px solid var(--border);
+      padding:10px 0;
+      background:linear-gradient(90deg,rgba(59,130,246,.10),rgba(34,211,238,.05),rgba(59,130,246,.10));
+      font-size:12px;color:var(--muted);text-align:center;
+    }
+    .announcement a{color:var(--text);font-weight:700}
+    .announcement span{margin-left:8px;color:var(--primary-2)}
+
+    /* Nav */
+    .nav-wrap{
+      position:fixed;top:18px;left:0;right:0;z-index:100;
+      pointer-events:none;
+    }
+    .nav{
+      pointer-events:auto;
+      width:min(1120px,calc(100% - 32px));margin:0 auto;
+      border:1px solid var(--border);
+      background:rgba(5,11,20,.58);
+      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border-radius:18px;
+      min-height:68px;
+      display:flex;align-items:center;gap:18px;padding:10px 14px 10px 18px;
+      box-shadow:0 20px 60px rgba(0,0,0,.22);
+      transition:.35s var(--ease);
+    }
+    html[data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+    .nav.scrolled{box-shadow:0 20px 70px rgba(0,0,0,.35);border-color:var(--border-strong)}
+    .brand{display:flex;align-items:center;gap:11px;min-width:150px}
+    .brand-mark{
+      width:31px;height:31px;border-radius:9px;display:grid;place-items:center;
+      background:linear-gradient(145deg,var(--primary),var(--cyan));
+      box-shadow:0 0 30px rgba(59,130,246,.35);
+      position:relative;overflow:hidden;
+    }
+    .brand-mark svg{width:18px;height:18px;stroke:#fff}
+    .brand-text{font-size:15px;letter-spacing:-.03em;font-weight:800}
+    .brand-text span{color:var(--primary-2)}
+    .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .nav-links a,.nav-actions button{
+      padding:10px 12px;border-radius:10px;color:var(--muted);font-size:13px;font-weight:600;
+      transition:.2s ease;
+    }
+    .nav-links a:hover,.nav-actions button:hover{color:var(--text);background:rgba(255,255,255,.05)}
+    html[data-theme="light"] .nav-links a:hover,html[data-theme="light"] .nav-actions button:hover{background:rgba(15,23,42,.05)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .btn{
+      border:0;border-radius:12px;padding:13px 17px;font-weight:800;font-size:13px;
+      transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s ease,border .2s ease;
+      position:relative;overflow:hidden;
+    }
+    .btn::after{
+      content:"";position:absolute;inset:0;transform:translateX(-120%);
+      background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);
+      transition:transform .7s var(--ease);
+    }
+    .btn:hover::after{transform:translateX(120%)}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      color:#fff;background:linear-gradient(135deg,#2563EB,#3B82F6);
+      box-shadow:0 14px 35px rgba(37,99,235,.28);
+    }
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border-strong)}
+    .btn-ghost:hover{background:rgba(255,255,255,.05)}
+    .theme-btn{
+      width:40px;height:40px;border-radius:11px;border:1px solid var(--border);
+      background:rgba(255,255,255,.03);color:var(--muted);display:grid;place-items:center;
+    }
+    .menu-btn{display:none;margin-left:auto;width:44px;height:44px;border-radius:11px;border:1px solid var(--border);background:transparent;color:var(--text)}
+    .mobile-panel{
+      display:none;width:min(1120px,calc(100% - 32px));margin:8px auto 0;padding:10px;
+      border:1px solid var(--border);border-radius:16px;background:rgba(5,11,20,.92);backdrop-filter:blur(18px);
+    }
+    .mobile-panel.open{display:grid}
+    .mobile-panel a,.mobile-panel button{padding:13px;border:0;background:transparent;text-align:left;color:var(--text);border-radius:10px;font-weight:700}
+    .mobile-panel a:hover,.mobile-panel button:hover{background:rgba(255,255,255,.05)}
+
+    /* Hero */
+    .hero{padding:170px 0 90px;min-height:930px;display:flex;align-items:center}
+    .hero-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:56px;align-items:center}
+    .hero-copy h1{font-size:clamp(54px,6.1vw,90px);letter-spacing:-.065em;line-height:.98;margin:16px 0 0;max-width:720px}
+    .hero-copy h1 .grad{
+      background:linear-gradient(90deg,#fff,#93C5FD 48%,#22D3EE);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    html[data-theme="light"] .hero-copy h1 .grad{background:linear-gradient(90deg,#0F172A,#2563EB 55%,#0891B2);-webkit-background-clip:text;background-clip:text}
+    .hero-copy .lead{font-size:19px;line-height:1.72;color:var(--muted);max-width:620px;margin-top:24px}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .hero-proof{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;color:var(--muted-2);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+    .hero-proof span{display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.025)}
+    .hero-proof .check{color:var(--green)}
+
+    .hero-visual{
+      position:relative;min-height:660px;display:grid;place-items:center;
+    }
+    .orb,.orb2{
+      position:absolute;border-radius:50%;filter:blur(8px);pointer-events:none;
+    }
+    .orb{width:430px;height:430px;background:radial-gradient(circle,rgba(37,99,235,.22),transparent 65%);top:80px;right:30px}
+    .orb2{width:380px;height:380px;background:radial-gradient(circle,rgba(34,211,238,.12),transparent 68%);bottom:50px;left:30px}
+    .grid-bg{
+      position:absolute;inset:28px 0 0;
+      background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+      background-size:34px 34px;
+      mask-image:radial-gradient(circle at center,#000 42%,transparent 82%);
+      -webkit-mask-image:radial-gradient(circle at center,#000 42%,transparent 82%);
+      opacity:.55;
+    }
+    html[data-theme="light"] .grid-bg{background-image:linear-gradient(rgba(15,23,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.05) 1px,transparent 1px)}
+    .command{
+      width:min(690px,100%);position:relative;z-index:2;
+      border:1px solid var(--border-strong);border-radius:26px;padding:14px;
+      background:linear-gradient(145deg,rgba(10,19,33,.96),rgba(8,14,24,.89));
+      box-shadow:0 40px 100px rgba(0,0,0,.42),0 0 0 1px rgba(59,130,246,.03) inset;
+      transform:perspective(1100px) rotateY(-7deg) rotateX(3deg);
+      transition:transform .6s var(--ease);
+    }
+    html[data-theme="light"] .command{background:linear-gradient(145deg,#ffffff,#f2f6fb)}
+    .hero-visual:hover .command{transform:perspective(1100px) rotateY(-2deg) rotateX(1deg) translateY(-5px)}
+    .window-top{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 12px}
+    .window-dots{display:flex;gap:6px}.window-dots i{width:7px;height:7px;border-radius:50%;display:block;background:#334155}
+    .window-title{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em}
+    .window-status{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--green);font-weight:800}
+    .window-status b{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(34,197,94,.75)}
+    .dash{display:grid;grid-template-columns:1.22fr .78fr;gap:11px}
+    .dash-left,.dash-right{display:grid;gap:11px}
+    .panel{
+      border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.025);padding:14px;
+    }
+    html[data-theme="light"] .panel{background:rgba(15,23,42,.02)}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .panel-head h4{margin:0;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:999px;
+      border:1px solid var(--border);background:rgba(255,255,255,.03);font-size:9px;font-weight:800;color:var(--muted)
+    }
+    .pill.blue{color:var(--primary-2);border-color:rgba(59,130,246,.2);background:rgba(59,130,246,.08)}
+    .pill.green{color:var(--green);border-color:rgba(34,197,94,.18);background:rgba(34,197,94,.07)}
+    .pill.amber{color:var(--amber);border-color:rgba(245,158,11,.18);background:rgba(245,158,11,.07)}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+    .kpi{
+      padding:13px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.02)
+    }
+    .kpi small{display:block;color:var(--muted-2);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    .kpi strong{display:block;font-size:25px;line-height:1.1;margin-top:7px;letter-spacing:-.04em}
+    .kpi em{display:block;font-style:normal;font-size:9px;color:var(--green);margin-top:5px}
+    .map{
+      height:275px;border-radius:15px;position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 58% 38%,rgba(34,211,238,.08),transparent 24%),
+        radial-gradient(circle at 32% 63%,rgba(59,130,246,.08),transparent 22%),
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+        #091421;
+      background-size:auto,auto,26px 26px,26px 26px;
+      border:1px solid var(--border);
+    }
+    html[data-theme="light"] .map{background:
+      radial-gradient(circle at 58% 38%,rgba(34,211,238,.12),transparent 24%),
+      radial-gradient(circle at 32% 63%,rgba(59,130,246,.10),transparent 22%),
+      linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px),
+      #EFF4F8;background-size:auto,auto,26px 26px,26px 26px}
+    .map svg{position:absolute;inset:0;width:100%;height:100%}
+    .route{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:650;stroke-dashoffset:650;animation:route 2.4s var(--ease) forwards}
+    .route.r1{stroke:#60A5FA;stroke-width:3}
+    .route.r2{stroke:#22D3EE;stroke-width:2.4;animation-delay:.5s}
+    .route.r3{stroke:#34D399;stroke-width:2.2;animation-delay:1s}
+    @keyframes route{to{stroke-dashoffset:0}}
+    .map-label{position:absolute;font-size:8px;font-weight:800;color:var(--muted);letter-spacing:.03em}
+    .map-label.l1{left:23%;top:28%}.map-label.l2{left:42%;top:61%}.map-label.l3{left:60%;top:43%}.map-label.l4{left:67%;top:71%}
+    .map-pin{
+      position:absolute;width:10px;height:10px;border-radius:50%;background:var(--primary-2);
+      box-shadow:0 0 0 5px rgba(96,165,250,.10),0 0 22px rgba(96,165,250,.65);
+      animation:pulse 2s infinite;
+    }
+    .map-pin.green{background:var(--green);box-shadow:0 0 0 5px rgba(34,197,94,.10),0 0 22px rgba(34,197,94,.55)}
+    .map-pin.p1{left:29%;top:40%}.map-pin.p2{left:52%;top:51%;animation-delay:.4s}.map-pin.p3{left:70%;top:56%;animation-delay:.8s}.map-pin.p4{left:38%;top:69%;animation-delay:1.2s}.map-pin.p5{left:64%;top:30%;animation-delay:1.6s}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+    .activity{display:grid;gap:9px}
+    .activity-row{display:grid;grid-template-columns:28px 1fr auto;gap:9px;align-items:center;padding:9px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.02)}
+    .avatar{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(145deg,#1E293B,#334155);font-size:9px;font-weight:900}
+    .activity-main strong{display:block;font-size:10px}.activity-main small{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}
+    .activity-row time{font-size:8px;color:var(--muted-2)}
+    .floating-card{
+      position:absolute;z-index:4;padding:12px 13px;border:1px solid var(--border-strong);border-radius:15px;
+      background:rgba(8,14,24,.86);backdrop-filter:blur(14px);box-shadow:var(--shadow-soft);
+    }
+    html[data-theme="light"] .floating-card{background:rgba(255,255,255,.86)}
+    .floating-card.order{left:-6%;bottom:80px;width:210px;animation:float 5s ease-in-out infinite}
+    .floating-card.rider{right:-5%;top:130px;width:180px;animation:float 5s ease-in-out 1s infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    .fc-top{display:flex;align-items:center;justify-content:space-between}
+    .fc-id{font-size:9px;color:var(--muted);font-weight:800}
+    .fc-title{font-size:12px;font-weight:800;margin-top:8px}.fc-sub{font-size:9px;color:var(--muted);margin-top:3px}
+    .fc-line{height:1px;background:var(--border);margin:10px 0}
+    .fc-bottom{display:flex;align-items:center;justify-content:space-between}.fc-bottom span{font-size:9px;color:var(--muted)}.fc-bottom b{font-size:11px;color:var(--green)}
+
+    /* marquee */
+    .marquee{
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;overflow:hidden;
+      background:rgba(255,255,255,.018);
+    }
+    .marquee-track{display:flex;width:max-content;gap:42px;animation:marquee 26s linear infinite}
+    .marquee-item{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .marquee-item b{width:5px;height:5px;border-radius:50%;background:var(--primary)}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+
+    /* Generic visual blocks */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .copy-stack{max-width:580px}
+    .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px}
+    .mini-card{padding:18px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.02);min-height:150px}
+    .mini-icon{
+      width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+      background:rgba(59,130,246,.10);color:var(--primary-2);border:1px solid rgba(59,130,246,.16)
+    }
+    .mini-card h3{font-size:14px;margin:16px 0 6px}.mini-card p{font-size:12px;color:var(--muted);margin:0;line-height:1.65}
+
+    /* Chaos section */
+    .chaos{
+      position:relative;min-height:520px;border:1px solid var(--border);border-radius:30px;overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 45%,rgba(59,130,246,.10),transparent 28%),
+        linear-gradient(145deg,rgba(255,255,255,.02),transparent 50%);
+    }
+    .chaos::before{
+      content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:34px 34px;opacity:.35
+    }
+    .chaos-center{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;
+      display:grid;place-items:center;text-align:center;border:1px solid rgba(59,130,246,.25);
+      background:radial-gradient(circle,rgba(59,130,246,.18),rgba(7,17,31,.88) 65%);
+      box-shadow:0 0 100px rgba(59,130,246,.18);
+    }
+    .chaos-center strong{display:block;font-size:14px}.chaos-center small{display:block;color:var(--muted);font-size:9px;margin-top:6px}
+    .chaos-node{
+      position:absolute;padding:11px 13px;border:1px solid var(--border);border-radius:13px;background:rgba(8,14,24,.82);backdrop-filter:blur(12px);font-size:10px;font-weight:800;color:var(--muted);
+      box-shadow:var(--shadow-soft);animation:drift 7s ease-in-out infinite;
+    }
+    html[data-theme="light"] .chaos-node{background:rgba(255,255,255,.82)}
+    .chaos-node b{display:block;color:var(--text);font-size:11px;margin-bottom:3px}
+    .chaos-node.n1{left:8%;top:14%}.chaos-node.n2{right:8%;top:18%;animation-delay:1s}.chaos-node.n3{left:6%;bottom:18%;animation-delay:1.6s}.chaos-node.n4{right:7%;bottom:14%;animation-delay:2.3s}.chaos-node.n5{left:45%;top:8%;animation-delay:3s}.chaos-node.n6{left:42%;bottom:8%;animation-delay:3.8s}
+    @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    .chaos-line{position:absolute;left:50%;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(239,68,68,.35),transparent);transform-origin:left center;opacity:.45}
+    .cl1{width:290px;transform:rotate(203deg)}.cl2{width:300px;transform:rotate(337deg)}.cl3{width:280px;transform:rotate(153deg)}.cl4{width:290px;transform:rotate(23deg)}.cl5{width:250px;transform:rotate(273deg)}.cl6{width:240px;transform:rotate(93deg)}
+
+    /* Architecture */
+    .architecture{
+      margin-top:60px;position:relative;padding:40px;border:1px solid var(--border);border-radius:32px;
+      background:linear-gradient(145deg,rgba(59,130,246,.045),rgba(255,255,255,.015));
+      overflow:hidden;
+    }
+    .arch-row{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2}
+    .arch-group{display:grid;gap:10px;min-width:190px}
+    .arch-title{text-align:center;font-size:10px;color:var(--muted-2);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .arch-stack{display:grid;gap:8px}
+    .arch-node{
+      padding:11px 14px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.025);
+      font-size:11px;font-weight:800;color:var(--muted);display:flex;align-items:center;justify-content:space-between;
+    }
+    .arch-node span{font-size:9px;color:var(--primary-2)}
+    .arch-core{
+      width:250px;min-height:220px;border-radius:26px;padding:22px;border:1px solid rgba(59,130,246,.28);
+      background:radial-gradient(circle at 50% 35%,rgba(59,130,246,.20),rgba(10,19,33,.88) 62%);
+      display:grid;place-items:center;text-align:center;box-shadow:0 0 90px rgba(59,130,246,.13);
+    }
+    html[data-theme="light"] .arch-core{background:radial-gradient(circle at 50% 35%,rgba(59,130,246,.14),rgba(255,255,255,.94) 62%)}
+    .core-mark{width:64px;height:64px;border-radius:18px;background:linear-gradient(145deg,#2563EB,#22D3EE);display:grid;place-items:center;box-shadow:0 20px 40px rgba(37,99,235,.25)}
+    .core-mark svg{width:34px;height:34px;stroke:#fff}
+    .arch-core h3{margin:14px 0 2px;font-size:18px}.arch-core p{margin:0;color:var(--muted);font-size:11px}
+    .core-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:16px}
+    .core-chips span{font-size:8px;color:var(--muted);padding:6px 8px;border:1px solid var(--border);border-radius:999px}
+    .arch-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+    .arch-path{fill:none;stroke:rgba(96,165,250,.42);stroke-width:1.5;stroke-dasharray:6 8;animation:flow 10s linear infinite}
+    @keyframes flow{to{stroke-dashoffset:-140}}
+
+    /* Workflow */
+    .workflow{display:grid;grid-template-columns:250px 1fr;gap:45px;margin-top:55px}
+    .workflow-nav{display:grid;gap:10px}
+    .wf-btn{
+      padding:15px 16px;text-align:left;border:1px solid var(--border);border-radius:14px;background:transparent;color:var(--muted);
+      display:flex;align-items:center;gap:12px;transition:.25s var(--ease)
+    }
+    .wf-btn:hover{border-color:var(--border-strong);color:var(--text);transform:translateX(3px)}
+    .wf-btn.active{background:linear-gradient(90deg,rgba(59,130,246,.11),rgba(59,130,246,.03));border-color:rgba(59,130,246,.28);color:var(--text)}
+    .wf-num{font-size:10px;color:var(--muted-2);font-weight:900;letter-spacing:.08em}
+    .wf-btn.active .wf-num{color:var(--primary-2)}
+    .wf-stage{border:1px solid var(--border);border-radius:30px;min-height:470px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.01));overflow:hidden}
+    .wf-stage-top{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+    .wf-stage-top strong{font-size:13px}.wf-stage-top span{font-size:9px;color:var(--muted)}
+    .stage-screen{padding:26px;display:grid;grid-template-columns:1.08fr .92fr;gap:18px;min-height:415px}
+    .stage-main{border:1px solid var(--border);border-radius:22px;padding:18px;background:rgba(255,255,255,.02);display:flex;flex-direction:column}
+    .stage-status{display:flex;align-items:center;justify-content:space-between}
+    .stage-status .big{font-size:31px;font-weight:800;letter-spacing:-.04em}
+    .stage-map{margin-top:16px;border-radius:18px;flex:1;min-height:230px;background:
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+      radial-gradient(circle at 50% 52%,rgba(34,211,238,.08),transparent 38%),#091421;background-size:22px 22px,22px 22px,auto,auto;position:relative;overflow:hidden
+    }
+    .stage-path{position:absolute;left:12%;top:62%;width:76%;height:2px;background:linear-gradient(90deg,var(--primary),var(--cyan),var(--green));box-shadow:0 0 18px rgba(96,165,250,.45);transform:rotate(-17deg)}
+    .stage-path:after{content:"";position:absolute;right:0;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 20px rgba(34,197,94,.6)}
+    .stage-pin{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--primary-2);box-shadow:0 0 0 5px rgba(59,130,246,.10);animation:pulse 2s infinite}
+    .stage-pin.s1{left:20%;top:54%}.stage-pin.s2{left:53%;top:39%;animation-delay:.4s}.stage-pin.s3{left:76%;top:29%;animation-delay:.8s}
+    .stage-side{display:grid;gap:12px;align-content:start}
+    .state-card{padding:16px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.02)}
+    .state-card .label{font-size:9px;color:var(--muted-2);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .state-card h4{margin:8px 0 2px;font-size:16px}.state-card p{margin:0;color:var(--muted);font-size:11px}
+    .state-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:10px}
+    .state-row b{color:var(--text)}.state-row span{color:var(--green)}
+    .stage-button{margin-top:auto}
+
+    /* Dashboard */
+    .product-shell{margin-top:60px;border:1px solid var(--border);border-radius:32px;background:linear-gradient(145deg,#0A1422,#07111C);padding:12px;box-shadow:var(--shadow)}
+    html[data-theme="light"] .product-shell{background:linear-gradient(145deg,#FFFFFF,#EEF3FA)}
+    .product-app{display:grid;grid-template-columns:190px 1fr;min-height:670px;border:1px solid var(--border);border-radius:24px;overflow:hidden;background:rgba(255,255,255,.02)}
+    .app-sidebar{padding:16px;border-right:1px solid var(--border);background:rgba(255,255,255,.012)}
+    .app-mini-brand{display:flex;align-items:center;gap:9px;margin-bottom:24px;font-size:12px;font-weight:800}
+    .app-mini-brand i{width:24px;height:24px;border-radius:7px;background:linear-gradient(145deg,var(--primary),var(--cyan))}
+    .app-nav{display:grid;gap:5px}
+    .app-nav a{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:10px;color:var(--muted);font-size:11px;font-weight:700}
+    .app-nav a.active,.app-nav a:hover{background:rgba(59,130,246,.10);color:var(--text)}
+    .app-footer-note{margin-top:auto;padding-top:25px;color:var(--muted-2);font-size:9px;line-height:1.55}
+    .app-main{padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.015),transparent 24%)}
+    .app-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .app-top-left strong{font-size:15px}.app-top-left small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+    .app-top-actions{display:flex;align-items:center;gap:8px}
+    .app-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--muted);display:grid;place-items:center}
+    .app-metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+    .app-metric{padding:13px 14px;border:1px solid var(--border);border-radius:15px;background:rgba(255,255,255,.02)}
+    .app-metric small{display:block;color:var(--muted-2);font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .app-metric strong{display:block;font-size:24px;letter-spacing:-.04em;margin-top:6px}
+    .app-metric span{font-size:9px;color:var(--green);margin-top:4px;display:block}
+    .app-body{display:grid;grid-template-columns:1.17fr .83fr;gap:11px;margin-top:11px}
+    .app-card{padding:14px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.018)}
+    .app-card h4{margin:0;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+    .dash-map{height:330px;margin-top:11px;border-radius:14px;background:
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+      radial-gradient(circle at 40% 44%,rgba(59,130,246,.08),transparent 25%),#091421;background-size:24px 24px,24px 24px,auto,auto;position:relative;overflow:hidden
+    }
+    .dash-map .zone{position:absolute;border:1px dashed rgba(96,165,250,.16);border-radius:50%}
+    .zone.z1{width:190px;height:125px;left:12%;top:18%;transform:rotate(-16deg)}.zone.z2{width:160px;height:115px;right:8%;top:37%;transform:rotate(16deg)}.zone.z3{width:190px;height:120px;left:33%;bottom:5%;transform:rotate(-7deg)}
+    .map-street{position:absolute;height:2px;background:rgba(255,255,255,.05);transform-origin:left center}
+    .ms1{width:350px;left:6%;top:48%;transform:rotate(12deg)}.ms2{width:300px;left:20%;top:72%;transform:rotate(-15deg)}.ms3{width:280px;left:45%;top:32%;transform:rotate(34deg)}.ms4{width:260px;left:50%;top:57%;transform:rotate(-31deg)}
+    .dash-route{position:absolute;height:2px;background:linear-gradient(90deg,#60A5FA,#22D3EE,#34D399);box-shadow:0 0 16px rgba(96,165,250,.35);transform-origin:left center}
+    .dr1{width:240px;left:22%;top:60%;transform:rotate(-17deg)}.dr2{width:170px;left:45%;top:42%;transform:rotate(28deg)}.dr3{width:120px;left:58%;top:58%;transform:rotate(-6deg)}
+    .rider-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--primary-2);box-shadow:0 0 0 5px rgba(96,165,250,.08),0 0 18px rgba(96,165,250,.7);animation:pulse 2.1s infinite}
+    .rd1{left:27%;top:54%}.rd2{left:48%;top:49%;animation-delay:.4s}.rd3{left:66%;top:59%;animation-delay:.9s}.rd4{left:59%;top:35%;animation-delay:1.4s}
+    .map-city{position:absolute;font-size:8px;color:var(--muted);font-weight:800}
+    .mc1{left:12%;top:22%}.mc2{left:32%;top:73%}.mc3{right:16%;top:43%}.mc4{left:53%;top:23%}.mc5{right:8%;bottom:15%}
+    .right-stack{display:grid;gap:11px}
+    .delivery-list{display:grid;gap:8px;margin-top:11px}
+    .delivery-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px;border:1px solid var(--border);border-radius:12px}
+    .delivery-row strong{font-size:10px}.delivery-row small{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}
+    .delivery-status{font-size:8px;font-weight:800;color:var(--green);align-self:start}
+    .mini-chart{height:125px;margin-top:11px;position:relative}
+    .mini-chart svg{width:100%;height:100%}
+    .mini-chart .line{fill:none;stroke:#60A5FA;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:700;stroke-dashoffset:700;animation:chart 2s var(--ease) forwards}
+    @keyframes chart{to{stroke-dashoffset:0}}
+    .chart-grid{stroke:rgba(255,255,255,.07);stroke-width:1}
+    .chart-dot{fill:#22D3EE;filter:drop-shadow(0 0 8px rgba(34,211,238,.7))}
+
+    /* Solutions */
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:13px;margin-top:55px}
+    .bento-card{min-height:220px;border:1px solid var(--border);border-radius:24px;padding:22px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));position:relative;overflow:hidden;transition:.35s var(--ease)}
+    .bento-card:hover{transform:translateY(-5px);border-color:var(--border-strong);box-shadow:var(--shadow-soft)}
+    .bento-card.large{grid-column:span 7}.bento-card.medium{grid-column:span 5}.bento-card.small{grid-column:span 4}
+    .bento-card .tag{position:absolute;top:18px;right:18px;font-size:9px;color:var(--muted-2);text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+    .bento-card h3{font-size:21px;letter-spacing:-.03em;margin:50px 0 7px}.bento-card p{color:var(--muted);font-size:12px;max-width:360px;line-height:1.7}
+    .bento-viz{position:absolute;right:18px;bottom:18px;left:55%;height:92px;border:1px solid var(--border);border-radius:15px;background:rgba(255,255,255,.02);padding:12px}
+    .bars{display:flex;align-items:flex-end;gap:7px;height:100%}.bars i{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,#60A5FA,#2563EB);opacity:.9}
+    .bars i:nth-child(1){height:32%}.bars i:nth-child(2){height:55%}.bars i:nth-child(3){height:46%}.bars i:nth-child(4){height:72%}.bars i:nth-child(5){height:80%}.bars i:nth-child(6){height:94%}
+    .bento-card .tiny-metrics{display:flex;gap:10px;margin-top:16px}
+    .tiny-metrics span{font-size:9px;color:var(--muted);padding:7px 9px;border:1px solid var(--border);border-radius:999px}
+
+    /* Network */
+    .network{position:relative;margin-top:60px;padding:35px;border:1px solid var(--border);border-radius:32px;min-height:530px;overflow:hidden;background:
+      radial-gradient(circle at 50% 44%,rgba(59,130,246,.11),transparent 28%),
+      linear-gradient(145deg,rgba(255,255,255,.025),transparent 58%);
+    }
+    .network-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:210px;height:210px;border-radius:50%;border:1px solid rgba(59,130,246,.24);background:radial-gradient(circle,rgba(59,130,246,.17),rgba(7,17,31,.88) 68%);display:grid;place-items:center;text-align:center;box-shadow:0 0 90px rgba(59,130,246,.13)}
+    html[data-theme="light"] .network-center{background:radial-gradient(circle,rgba(59,130,246,.11),#fff 68%)}
+    .network-center .core-mark{width:54px;height:54px;border-radius:15px}.network-center h3{font-size:16px;margin:12px 0 2px}.network-center p{font-size:9px;color:var(--muted);margin:0}
+    .net-node{position:absolute;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:rgba(8,14,24,.82);backdrop-filter:blur(12px);font-size:10px;font-weight:800}
+    html[data-theme="light"] .net-node{background:rgba(255,255,255,.88)}
+    .net-node strong{display:block;color:var(--text);font-size:11px}.net-node small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+    .nn1{left:8%;top:16%}.nn2{right:8%;top:17%}.nn3{left:8%;bottom:17%}.nn4{right:8%;bottom:15%}.nn5{left:38%;top:8%}.nn6{right:39%;bottom:7%}
+    .net-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    .net-line{fill:none;stroke:rgba(96,165,250,.36);stroke-width:1.5;stroke-dasharray:7 8;animation:flow 10s linear infinite}
+
+    /* Finance */
+    .finance-shell{margin-top:60px;display:grid;grid-template-columns:1.1fr .9fr;gap:13px}
+    .finance-card{padding:24px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.012))}
+    .finance-value{font-size:55px;font-weight:800;letter-spacing:-.06em;margin-top:18px}
+    .finance-caption{font-size:11px;color:var(--muted);max-width:420px;margin-top:6px}
+    .ledger{display:grid;gap:8px;margin-top:20px}
+    .ledger-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:12px}
+    .ledger-row strong{font-size:10px}.ledger-row small{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}.ledger-row b{font-size:10px}
+    .settlement{margin-top:18px;padding:18px;border:1px solid rgba(34,197,94,.18);border-radius:18px;background:rgba(34,197,94,.04)}
+    .settlement-top{display:flex;align-items:center;justify-content:space-between}.settlement-top span{font-size:10px;color:var(--muted)}.settlement-top b{font-size:10px;color:var(--green)}
+    .settlement-total{font-size:30px;font-weight:800;letter-spacing:-.05em;margin-top:8px}
+    .finance-mini{display:grid;gap:13px}
+    .finance-stat{padding:18px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.02)}
+    .finance-stat small{color:var(--muted-2);font-size:9px;font-weight:800;text-transform:uppercase}.finance-stat strong{display:block;font-size:32px;letter-spacing:-.04em;margin-top:7px}.finance-stat span{display:block;font-size:9px;color:var(--muted);margin-top:4px}
+
+    /* Analytics */
+    .analytics{margin-top:55px;border:1px solid var(--border);border-radius:30px;padding:22px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+    .analytics-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.analytics-head strong{font-size:15px}.analytics-head span{font-size:10px;color:var(--muted)}
+    .analytics-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:13px;margin-top:15px}
+    .chart-box{border:1px solid var(--border);border-radius:20px;padding:16px;background:rgba(255,255,255,.018)}
+    .chart-box h4{margin:0;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+    .big-chart{height:280px;margin-top:10px}
+    .big-chart svg{width:100%;height:100%}
+    .big-line{fill:none;stroke:#60A5FA;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:chart 2.3s var(--ease) forwards}
+    .axis{fill:none;stroke:rgba(255,255,255,.06);stroke-width:1}
+    .donut-wrap{display:grid;place-items:center;height:280px;position:relative}
+    .donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(#60A5FA 0 57%,#22D3EE 57% 79%,#22C55E 79% 92%,#334155 92% 100%);position:relative;box-shadow:0 0 50px rgba(59,130,246,.12)}
+    .donut:after{content:"";position:absolute;inset:24px;border-radius:50%;background:var(--surface);border:1px solid var(--border)}
+    .donut-label{position:absolute;z-index:2;text-align:center}.donut-label strong{font-size:28px;display:block}.donut-label span{font-size:9px;color:var(--muted)}
+
+    /* Steps */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:55px}
+    .step{padding:28px;border:1px solid var(--border);border-radius:24px;min-height:260px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.01));position:relative;overflow:hidden}
+    .step-num{font-size:54px;line-height:1;font-weight:800;color:rgba(148,163,184,.16);letter-spacing:-.06em}
+    .step h3{font-size:19px;margin:24px 0 7px}.step p{font-size:12px;color:var(--muted);max-width:300px;line-height:1.7}
+    .step-line{position:absolute;left:28px;right:28px;bottom:22px;height:1px;background:linear-gradient(90deg,var(--primary),transparent)}
+    .step-arrow{position:absolute;right:25px;bottom:14px;color:var(--primary-2)}
+
+    /* Pricing */
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:55px}
+    .price-card{padding:28px;border:1px solid var(--border);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.01));position:relative;overflow:hidden}
+    .price-card.pop{border-color:rgba(59,130,246,.28);box-shadow:0 25px 70px rgba(37,99,235,.12);transform:translateY(-6px)}
+    .price-badge{position:absolute;top:18px;right:18px;padding:6px 8px;border-radius:999px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2);color:var(--primary-2);font-size:8px;font-weight:800;letter-spacing:.08em}
+    .price-card h3{font-size:18px;margin:0}.price-card p{font-size:11px;color:var(--muted);margin:8px 0 20px}.price-note{font-size:28px;font-weight:800;letter-spacing:-.05em}.price-small{font-size:9px;color:var(--muted-2);margin-top:3px}
+    .price-list{display:grid;gap:9px;margin:24px 0}.price-list li{list-style:none;display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:11px}.price-list i{color:var(--green);font-style:normal}
+    .price-list ul{padding:0;margin:0;display:grid;gap:9px}
+
+    /* FAQ */
+    .faq{display:grid;gap:9px;margin-top:55px;max-width:920px}
+    .faq-item{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.018)}
+    .faq-q{width:100%;padding:19px 20px;background:transparent;color:var(--text);border:0;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;font-weight:800;font-size:13px}
+    .faq-icon{width:30px;height:30px;border-radius:9px;border:1px solid var(--border);display:grid;place-items:center;color:var(--muted);transition:.25s var(--ease);flex:0 0 auto}
+    .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s var(--ease)}
+    .faq-a > div{overflow:hidden}.faq-a p{padding:0 20px 18px;margin:0;color:var(--muted);font-size:12px;line-height:1.75}
+    .faq-item.open .faq-a{grid-template-rows:1fr}.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--primary-2);border-color:rgba(59,130,246,.22)}
+
+    /* Final */
+    .final-cta{padding:120px 0}
+    .final-box{position:relative;border:1px solid var(--border);border-radius:34px;overflow:hidden;padding:80px 60px;text-align:center;background:
+      radial-gradient(circle at 50% 15%,rgba(59,130,246,.18),transparent 28%),
+      radial-gradient(circle at 15% 80%,rgba(34,211,238,.10),transparent 25%),
+      linear-gradient(145deg,#07111F,#050B14);
+      box-shadow:var(--shadow);
+    }
+    .final-box .headline{margin:12px auto 0;max-width:930px}.final-box .subhead{margin:18px auto 0}
+    .route-bg{position:absolute;inset:0;opacity:.35;pointer-events:none}
+    .route-bg svg{width:100%;height:100%}.route-bg path{fill:none;stroke:#60A5FA;stroke-width:1.2;stroke-dasharray:6 9;animation:flow 12s linear infinite}
+    .final-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px;position:relative;z-index:2}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border);padding:45px 0 25px;background:rgba(255,255,255,.012)}
+    .footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+    .footer-brand p{max-width:280px;color:var(--muted);font-size:11px;line-height:1.7}
+    .footer-col h4{font-size:11px;color:var(--text);margin:0 0 12px}.footer-col a{display:block;color:var(--muted);font-size:11px;margin:9px 0}.footer-col a:hover{color:var(--text)}
+    .footer-bottom{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--border);margin-top:35px;padding-top:20px;color:var(--muted-2);font-size:10px}
+
+    /* Modals */
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(2,6,12,.68);backdrop-filter:blur(10px);z-index:300;
+      display:grid;place-items:center;padding:18px;opacity:0;pointer-events:none;transition:.25s ease
+    }
+    .modal-backdrop.show{opacity:1;pointer-events:auto}
+    .modal{
+      width:min(560px,100%);max-height:min(760px,calc(100vh - 36px));overflow:auto;border:1px solid var(--border-strong);
+      border-radius:26px;background:var(--surface);box-shadow:0 50px 120px rgba(0,0,0,.45);transform:translateY(12px) scale(.985);transition:.3s var(--ease)
+    }
+    .modal-backdrop.show .modal{transform:translateY(0) scale(1)}
+    .modal-head{padding:20px 20px 12px;display:flex;justify-content:space-between;gap:20px}.modal-head h3{margin:0;font-size:18px}.modal-head p{margin:5px 0 0;color:var(--muted);font-size:11px}
+    .close-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--muted);display:grid;place-items:center;flex:0 0 auto}
+    .modal-body{padding:8px 20px 22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--muted);font-weight:800}.field input,.field select,.field textarea{width:100%;padding:12px 13px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:none;transition:.2s ease}.field textarea{min-height:105px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(59,130,246,.55);box-shadow:0 0 0 3px rgba(59,130,246,.10)}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.modal-actions .btn{min-width:120px}
+    .demo-step{display:none}.demo-step.active{display:block}
+    .demo-loader{display:grid;place-items:center;padding:45px 0;text-align:center}.spinner{width:48px;height:48px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--primary-2);animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .result-card{padding:18px;border:1px solid rgba(34,197,94,.20);border-radius:18px;background:rgba(34,197,94,.035)}.result-card h4{margin:0 0 5px;font-size:17px}.result-card p{margin:0;color:var(--muted);font-size:11px}.result-link{display:flex;align-items:center;gap:8px;margin-top:14px}.result-link input{flex:1;padding:11px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:10px}
+
+    /* Toast */
+    .toast{
+      position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:10px;
+      padding:13px 15px;border-radius:13px;border:1px solid var(--border-strong);background:var(--surface);box-shadow:var(--shadow-soft);
+      transform:translateY(15px);opacity:0;pointer-events:none;transition:.3s var(--ease);font-size:11px;font-weight:700
+    }
+    .toast.show{transform:translateY(0);opacity:1}.toast-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(34,197,94,.6)}
+
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.reveal.visible{opacity:1;transform:none}
+    .reveal-delay-1{transition-delay:.08s}.reveal-delay-2{transition-delay:.16s}.reveal-delay-3{transition-delay:.24s}
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero-grid{grid-template-columns:1fr;gap:40px}
+      .hero-copy{max-width:850px}
+      .hero-visual{min-height:610px}
+      .floating-card.order{left:0}.floating-card.rider{right:0}
+      .split{grid-template-columns:1fr;gap:45px}
+      .architecture{padding:28px}.arch-row{flex-direction:column}.arch-group{width:100%;max-width:500px}.arch-core{order:-1}
+      .workflow{grid-template-columns:1fr}.workflow-nav{grid-template-columns:repeat(5,1fr)}.wf-btn{padding:12px}.wf-btn .label{display:none}.wf-num{margin:auto}
+      .finance-shell{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1.4fr repeat(3,1fr)}
+    }
+    @media (max-width:820px){
+      .nav-links,.nav-actions .btn-ghost{display:none}.menu-btn{display:grid;place-items:center}
+      .hero{padding-top:145px;min-height:auto}.hero-visual{min-height:560px}.command{transform:none}
+      .dash{grid-template-columns:1fr}.floating-card.rider{top:62px}.floating-card.order{bottom:38px}
+      .bento-card.large,.bento-card.medium,.bento-card.small{grid-column:span 12}
+      .bento-viz{left:45%}
+      .steps,.pricing{grid-template-columns:1fr}
+      .price-card.pop{transform:none}
+      .analytics-grid{grid-template-columns:1fr}
+      .app-metric-grid{grid-template-columns:repeat(2,1fr)}
+      .product-app{grid-template-columns:1fr}.app-sidebar{display:none}
+      .app-body{grid-template-columns:1fr}.right-stack{grid-template-columns:1fr 1fr}
+      .footer-grid{grid-template-columns:1.2fr 1fr 1fr}
+      .footer-col:last-child{display:none}
+    }
+    @media (max-width:620px){
+      .container{width:min(var(--container),calc(100% - 26px))}
+      .section{padding:82px 0}.section-tight{padding:70px 0}
+      .headline{font-size:clamp(34px,10vw,48px)}
+      .hero-copy h1{font-size:clamp(47px,15vw,65px)}
+      .hero-copy .lead{font-size:16px}
+      .hero-ctas .btn{width:100%}
+      .hero-proof{gap:7px}
+      .hero-proof span{font-size:9px}
+      .hero-visual{min-height:510px}.command{padding:9px;border-radius:21px}.panel{padding:10px}.kpi strong{font-size:20px}.map{height:220px}.floating-card.order{width:175px}.floating-card.rider{width:155px}
+      .mini-grid{grid-template-columns:1fr}
+      .chaos{min-height:520px}.chaos-node{font-size:9px}.chaos-center{width:135px;height:135px}
+      .workflow-nav{grid-template-columns:repeat(5,1fr);gap:6px}.wf-btn{padding:11px 7px}
+      .stage-screen{grid-template-columns:1fr}.stage-side{grid-template-columns:1fr 1fr}.wf-stage{min-height:0}.stage-main{min-height:365px}
+      .product-shell{padding:8px;border-radius:25px}.product-app{min-height:0}.app-main{padding:12px}.app-metric strong{font-size:20px}.dash-map{height:260px}.right-stack{grid-template-columns:1fr}
+      .finance-value{font-size:43px}.analytics{padding:14px}.big-chart{height:210px}
+      .final-box{padding:58px 20px;border-radius:26px}
+      .footer-grid{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.footer-col:nth-child(4){display:none}.footer-bottom{flex-direction:column}
+      .form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal{opacity:1!important;transform:none!important}
+    }
+  </style>
 </head>
+
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-<defs>
-<symbol id="i-pkg" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
-<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
-<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
-<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h17v13H3zM3 7l13-3v3M16 13h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-<symbol id="map" viewBox="0 0 600 380">
-<rect width="600" height="380" fill="#0A1626"/>
-<path d="M0 300 C120 270 160 330 300 320 S520 340 600 310 V380 H0z" fill="#0F2740"/>
-<g stroke="#17304A" stroke-width="1" fill="none"><path d="M0 60H600M0 140H600M0 220H600M100 0V380M220 0V380M340 0V380M460 0V380"/></g>
-<g stroke="#244566" stroke-width="3" fill="none" stroke-linecap="round"><path d="M40 90C150 100 230 70 330 110S500 90 570 140"/><path d="M80 250C170 200 250 210 320 170S450 180 540 230"/><path d="M200 20C210 120 190 200 230 300"/><path d="M400 30C390 120 420 200 380 310"/></g>
-<path class="route" d="M80 250C170 200 250 210 320 170S450 150 500 120" stroke="#3B82F6" stroke-width="3" fill="none" stroke-dasharray="8 8"/>
-<path class="route" d="M200 20C210 120 190 200 230 300" stroke="#22D3EE" stroke-width="2.5" fill="none" stroke-dasharray="6 8"/>
-<g fill="#8FA6BF" font-size="12" font-family="Inter,sans-serif"><text x="60" y="84">Colombo 03</text><text x="130" y="270">Colombo 05</text><text x="250" y="60">Colombo 06</text><text x="400" y="200">Nugegoda</text><text x="450" y="112">Rajagiriya</text><text x="500" y="160">Battaramulla</text><text x="30" y="335">Dehiwala</text><text x="150" y="360">Mount Lavinia</text></g>
-<circle cx="320" cy="170" r="6" fill="#3B82F6"/><circle class="pulse" cx="320" cy="170" r="6" fill="none" stroke="#3B82F6" stroke-width="2"/>
-<circle cx="500" cy="120" r="6" fill="#16A34A"/><circle cx="230" cy="300" r="6" fill="#F59E0B"/><circle cx="380" cy="310" r="6" fill="#EF4444"/>
-<text x="14" y="368" fill="#5F7894" font-size="11" font-family="Inter,sans-serif">Demo data · stylised map</text>
-</symbol>
-</defs></svg>
+  <div class="announcement">
+    <div class="container">Built for the next generation of Sri Lankan commerce <a href="#platform">Explore the platform</a><span>→</span></div>
+  </div>
 
-<a class="skip" href="#main">Skip to content</a>
-<a class="announce" href="#workflow">Now powering smarter last-mile delivery for Sri Lankan businesses &rarr;</a>
-<header class="nav" id="nav">
-<div class="wrap nav-in">
-<a href="#top" class="logo" aria-label="LANKA FLOW home"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6" fill="none" stroke="#3B82F6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>LANKA FLOW</a>
-<nav id="menu" aria-label="Primary"><a href="#solution">Platform</a><a href="#solutions">Solutions</a><a href="#workflow">How it works</a><a href="#pricing">Pricing</a><a href="#faq">Resources</a><button class="link" data-open="contact">Log in</button><button class="btn p sm" data-open="demo">Start delivering</button></nav>
-<button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
-</div></header>
+  <div class="nav-wrap">
+    <nav class="nav" id="navbar" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="LANKA FLOW home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M5 18c3-5 6-8 11-12"/><path d="M9 18c2-3 4-4 8-5"/><path d="M15 6h3v3"/>
+          </svg>
+        </span>
+        <span class="brand-text">LANKA <span>FLOW</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#platform">Platform</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#network">Network</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <svg id="themeIcon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+        </button>
+        <a href="#contact" class="btn btn-ghost">Talk to us</a>
+        <button class="btn btn-primary" data-demo>Start delivering</button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div class="mobile-panel" id="mobilePanel">
+      <a href="#platform">Platform</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#network">Network</a>
+      <a href="#pricing">Pricing</a>
+      <button data-demo>Start delivering</button>
+      <a href="#contact">Talk to us</a>
+    </div>
+  </div>
 
-<main id="main">
-<section class="hero dark" id="top"><div class="wrap hero-in">
-<div class="hero-t">
-<p class="eyebrow">Last-mile infrastructure</p>
-<h1>Your own delivery operation. Without owning a fleet.</h1>
-<p class="lead">LANKA FLOW gives Sri Lankan businesses the infrastructure to dispatch, track and manage deliveries through one intelligent platform.</p>
-<div class="cta"><button class="btn p" data-open="demo">Start delivering</button><a class="btn g" href="#workflow">See how it works &darr;</a></div>
-<ul class="ticks"><li>No fleet management</li><li>No rider scheduling</li><li>No delivery chaos</li></ul>
-</div>
-<div class="panel" aria-label="Demo dashboard preview">
-<div class="panel-h"><b>Urban Cart</b><span class="tag">Demo data</span></div>
-<svg viewBox="0 0 600 380" role="img" aria-label="Stylised Colombo delivery map"><use href="#map"/></svg>
-<div class="kpis"><div><small>Active deliveries</small><b data-count="24">24</b></div><div><small>On the road</small><b data-count="18">18</b></div><div><small>Waiting pickup</small><b data-count="4">4</b></div><div><small>Delivered today</small><b data-count="127">127</b></div></div>
-<div class="cod-row"><span>COD collected</span><b>Rs. 284,650</b></div>
-</div></div></section>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow"><span class="dot"></span> LAST-MILE INFRASTRUCTURE</span>
+          <h1>Your own delivery operation.<br><span class="grad">Without owning a fleet.</span></h1>
+          <p class="lead">LANKA FLOW gives Sri Lankan businesses one intelligent layer to dispatch, track and manage deliveries — without hiring, scheduling and micromanaging a fleet.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary" data-demo>Start delivering <span style="margin-left:6px">↗</span></button>
+            <a class="btn btn-ghost" href="#workflow">Explore the platform <span style="margin-left:6px">↓</span></a>
+          </div>
+          <div class="hero-proof">
+            <span><b class="check">✓</b> No rider hiring</span>
+            <span><b class="check">✓</b> Smart dispatch</span>
+            <span><b class="check">✓</b> Customer tracking</span>
+            <span><b class="check">✓</b> COD reconciliation</span>
+          </div>
+        </div>
 
-<section class="trust"><div class="wrap"><p class="small c">Built for the businesses moving Sri Lanka</p>
-<ul class="logos"><li>Retail</li><li>Pharmacy</li><li>Food</li><li>Fashion</li><li>Grocery</li><li>E-commerce</li></ul></div></section>
+        <div class="hero-visual reveal reveal-delay-2" aria-label="LANKA FLOW logistics dashboard demo">
+          <div class="orb"></div><div class="orb2"></div><div class="grid-bg"></div>
 
-<section class="sec"><div class="wrap"><h2>Delivery gets complicated fast.</h2>
-<div class="grid4">
-<article class="card rv"><svg class="ic"><use href="#i-pkg"/></svg><h3>Hiring riders</h3><p>Finding reliable riders is difficult.</p></article>
-<article class="card rv"><svg class="ic"><use href="#i-chat"/></svg><h3>Coordinating orders</h3><p>Orders arrive across WhatsApp, Instagram, phone calls and websites.</p></article>
-<article class="card rv"><svg class="ic"><use href="#i-pin"/></svg><h3>Tracking deliveries</h3><p>Customers constantly ask: “Where is my order?”</p></article>
-<article class="card rv"><svg class="ic"><use href="#i-wallet"/></svg><h3>Managing COD</h3><p>Cash collection and reconciliation become messy.</p></article>
-</div></div></section>
+          <div class="floating-card rider">
+            <div class="fc-top"><span class="fc-id">AVAILABLE RIDER</span><span class="pill green">LIVE</span></div>
+            <div class="fc-title">Kasun · Bike</div>
+            <div class="fc-sub">7 min to pickup · Colombo 05</div>
+            <div class="fc-line"></div>
+            <div class="fc-bottom"><span>Recommended</span><b>Rs. 320</b></div>
+          </div>
 
-<section class="sec dark" id="solution"><div class="wrap"><h2>One infrastructure layer. Every delivery.</h2>
-<p class="lead">LANKA FLOW sits between merchants and delivery supply.</p>
-<div class="arch rv">
-<div class="lane"><h3>Your business</h3><p>WhatsApp · Instagram · Website · POS · Shopify · Manual orders</p></div><i class="flow"></i>
-<div class="lane hl"><h3>LANKA FLOW</h3><p>Orders · Dispatch · Routing · Tracking · COD · Analytics</p></div><i class="flow"></i>
-<div class="lane"><h3>Delivery network</h3><p>Riders · Fleet partners · Courier partners · Dedicated drivers</p></div><i class="flow"></i>
-<div class="lane"><h3>Customer</h3><p>Live tracking and proof of delivery</p></div>
-</div></div></section>
+          <div class="floating-card order">
+            <div class="fc-top"><span class="fc-id">ORDER #58291</span><span class="pill blue">ACTIVE</span></div>
+            <div class="fc-title">Out for delivery</div>
+            <div class="fc-sub">Colombo 05 → Nugegoda</div>
+            <div class="fc-line"></div>
+            <div class="fc-bottom"><span>ETA</span><b>18 min</b></div>
+          </div>
 
-<section class="sec" id="workflow"><div class="wrap"><h2>From order to doorstep in minutes.</h2>
-<div class="wf">
-<div class="steps" role="tablist" aria-label="Delivery steps">
-<button role="tab" aria-selected="true" data-s="0">Order</button><button role="tab" aria-selected="false" data-s="1">Dispatch</button><button role="tab" aria-selected="false" data-s="2">Pickup</button><button role="tab" aria-selected="false" data-s="3">Track</button><button role="tab" aria-selected="false" data-s="4">Deliver</button></div>
-<div class="stage" id="stage" role="tabpanel" aria-live="polite"></div></div>
-<p class="small">Demo data — not live operations.</p></div></section>
+          <div class="command">
+            <div class="window-top">
+              <div class="window-dots"><i></i><i></i><i></i></div>
+              <div class="window-title">LANKA FLOW · DELIVERY OPERATIONS</div>
+              <div class="window-status"><b></b> LIVE DEMO</div>
+            </div>
 
-<section class="sec dark" id="platform"><div class="wrap"><h2>Your delivery control room.</h2>
-<div class="dash">
-<aside><b>Overview</b><a>Deliveries</a><a>Orders</a><a>Riders</a><a>Customers</a><a>Payments</a><a>Analytics</a><a>Settings</a></aside>
-<div class="dm"><h3>Good morning, Urban Cart</h3>
-<div class="kpis"><div><small>Deliveries</small><b>127</b></div><div><small>COD</small><b>Rs. 284,650</b></div><div><small>On time</small><b>94%</b></div><div><small>Avg dispatch</small><b>4.2 min</b></div></div>
-<svg viewBox="0 0 600 380" role="img" aria-label="Demo map"><use href="#map"/></svg></div>
-<ul class="dl"><li tabindex="0"><b>#58291</b><span>Out for delivery</span></li><li tabindex="0"><b>#58290</b><span>Pickup pending</span></li><li tabindex="0"><b>#58289</b><span>Delivered</span></li><li tabindex="0"><b>#58288</b><span>Out for delivery</span></li></ul>
-</div></div></section>
+            <div class="dash">
+              <div class="dash-left">
+                <div class="panel">
+                  <div class="panel-head"><h4>Operations</h4><span class="pill blue">Colombo</span></div>
+                  <div class="kpis">
+                    <div class="kpi"><small>Delivered today</small><strong class="counter" data-count="127">0</strong><em>+14% vs yesterday</em></div>
+                    <div class="kpi"><small>Active now</small><strong class="counter" data-count="24">0</strong><em>3 waiting pickup</em></div>
+                    <div class="kpi"><small>On time</small><strong>94%</strong><em>+2.1% this week</em></div>
+                    <div class="kpi"><small>COD collected</small><strong>284K</strong><em>Rs. 284,650</em></div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-head"><h4>Live dispatch map</h4><span class="pill green">24 routes</span></div>
+                  <div class="map">
+                    <svg viewBox="0 0 600 275" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="route r1" d="M80 180 C160 90,230 220,310 130 S440 70,520 95"/>
+                      <path class="route r2" d="M155 205 C225 180,300 190,365 125 S455 85,505 65"/>
+                      <path class="route r3" d="M210 85 C265 145,310 170,390 178 S480 220,545 160"/>
+                    </svg>
+                    <div class="map-label l1">COLOMBO 05</div><div class="map-label l2">NUGEGODA</div><div class="map-label l3">RAJAGIRIYA</div><div class="map-label l4">DEHIWALA</div>
+                    <div class="map-pin p1"></div><div class="map-pin p2"></div><div class="map-pin green p3"></div><div class="map-pin p4"></div><div class="map-pin green p5"></div>
+                  </div>
+                </div>
+              </div>
 
-<section class="sec"><div class="wrap"><h2>Start delivering without building a delivery team.</h2>
-<ol class="grid3">
-<li class="card rv"><h3>Connect your orders</h3><p>WhatsApp, website, Shopify, POS, API or manual orders.</p></li>
-<li class="card rv"><h3>Dispatch</h3><p>LANKA FLOW finds the best available delivery option.</p></li>
-<li class="card rv"><h3>Deliver</h3><p>Customers get live tracking. You get proof of delivery.</p></li></ol>
-<button class="btn p" data-open="demo">Get started</button></div></section>
+              <div class="dash-right">
+                <div class="panel">
+                  <div class="panel-head"><h4>Recent activity</h4><span class="pill">Today</span></div>
+                  <div class="activity">
+                    <div class="activity-row"><div class="avatar">KP</div><div class="activity-main"><strong>#58291 delivered</strong><small>OTP verified · Nugegoda</small></div><time>2m</time></div>
+                    <div class="activity-row"><div class="avatar">DM</div><div class="activity-main"><strong>#58290 picked up</strong><small>Colombo 05 · 1.7 km</small></div><time>5m</time></div>
+                    <div class="activity-row"><div class="avatar">TN</div><div class="activity-main"><strong>#58289 dispatched</strong><small>Rajagiriya · 11 min ETA</small></div><time>8m</time></div>
+                    <div class="activity-row"><div class="avatar">SR</div><div class="activity-main"><strong>#58288 delivered</strong><small>Dehiwala · COD collected</small></div><time>11m</time></div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-head"><h4>Delivery performance</h4><span class="pill green">+8.4%</span></div>
+                  <div class="mini-chart">
+                    <svg viewBox="0 0 250 125" preserveAspectRatio="none">
+                      <path class="chart-grid" d="M0 20H250M0 50H250M0 80H250M0 110H250"/>
+                      <polyline class="line" points="0,92 28,82 50,88 72,58 95,67 118,44 140,50 162,30 185,39 208,22 230,30 250,12"/>
+                      <circle class="chart-dot" cx="250" cy="12" r="4"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="sec muted" id="solutions"><div class="wrap"><h2>Built around your business.</h2>
-<div class="tabs" role="tablist" aria-label="Business types" id="tabs"></div>
-<div class="card tabp" id="tabp" role="tabpanel" aria-live="polite"></div></div></section>
+    <!-- TRUST -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-item"><b></b>E-commerce</div><div class="marquee-item"><b></b>Retail</div><div class="marquee-item"><b></b>Restaurants</div><div class="marquee-item"><b></b>Pharmacy</div><div class="marquee-item"><b></b>Grocery</div><div class="marquee-item"><b></b>Social commerce</div>
+        <div class="marquee-item"><b></b>E-commerce</div><div class="marquee-item"><b></b>Retail</div><div class="marquee-item"><b></b>Restaurants</div><div class="marquee-item"><b></b>Pharmacy</div><div class="marquee-item"><b></b>Grocery</div><div class="marquee-item"><b></b>Social commerce</div>
+      </div>
+    </div>
 
-<section class="sec dark"><div class="wrap"><h2>One platform. Multiple delivery networks.</h2>
-<p class="lead">You don't need to depend on a single delivery provider.</p>
-<div class="net rv"><b class="hl">LANKA FLOW</b><div><span>Own riders</span><span>Partners</span><span>Couriers</span></div><b>Smart dispatch</b></div>
-<ul class="chips"><li>Available supply</li><li>Multi-zone dispatch</li><li>Vehicle matching</li><li>Delivery SLA</li></ul>
-<p class="small">Illustrative capabilities, not operational statistics.</p></div></section>
+    <!-- PROBLEM -->
+    <section class="section">
+      <div class="container split">
+        <div class="copy-stack reveal">
+          <span class="eyebrow"><span class="dot"></span> THE PROBLEM</span>
+          <h2 class="headline">Delivery looks simple.<br>Until your orders start coming in.</h2>
+          <p class="subhead">WhatsApp orders. Instagram DMs. Website checkouts. Rider messages. Customer calls. COD notes. Suddenly the “simple” delivery operation is spread across six different places.</p>
+          <div class="mini-grid">
+            <div class="mini-card"><div class="mini-icon">01</div><h3>Hiring riders</h3><p>Finding reliable riders and keeping them busy enough is a problem of its own.</p></div>
+            <div class="mini-card"><div class="mini-icon">02</div><h3>Manual dispatch</h3><p>Matching each order to the right rider, zone and ETA wastes time.</p></div>
+            <div class="mini-card"><div class="mini-icon">03</div><h3>Tracking</h3><p>Customers ask “where is my order?” while your team hunts for answers.</p></div>
+            <div class="mini-card"><div class="mini-icon">04</div><h3>COD chaos</h3><p>Cash collection, adjustments and settlements quickly become messy.</p></div>
+          </div>
+        </div>
+        <div class="chaos reveal reveal-delay-1">
+          <div class="chaos-line cl1"></div><div class="chaos-line cl2"></div><div class="chaos-line cl3"></div><div class="chaos-line cl4"></div><div class="chaos-line cl5"></div><div class="chaos-line cl6"></div>
+          <div class="chaos-center"><div><strong>ONE ORDER</strong><small>needs one clean delivery path</small></div></div>
+          <div class="chaos-node n1"><b>WhatsApp</b>Customer order</div>
+          <div class="chaos-node n2"><b>Instagram</b>DM request</div>
+          <div class="chaos-node n3"><b>Rider chat</b>“Where next?”</div>
+          <div class="chaos-node n4"><b>Spreadsheet</b>COD notes</div>
+          <div class="chaos-node n5"><b>Website</b>New checkout</div>
+          <div class="chaos-node n6"><b>Phone call</b>“Where is it?”</div>
+        </div>
+      </div>
+    </section>
 
-<section class="sec"><div class="wrap cod"><div><h2>Delivery is only half the job. Get your cash under control too.</h2>
-<p>COD recording, delivery fee tracking, reconciliation and settlement reporting in one place.</p><button class="btn p" id="settle">View settlement</button></div>
-<div class="card settle rv" id="settlecard"><small>Today's delivery revenue (demo)</small><b class="big">Rs. 284,650</b>
-<dl><dt>Delivered</dt><dd>127</dd><dt>COD collected</dt><dd>Rs. 284,650</dd><dt>Delivery fees</dt><dd>− Rs. 38,100</dd><dt>Adjustments</dt><dd>− Rs. 4,250</dd></dl>
-<div class="net-s"><span>Net settlement</span><b id="net">Rs. 242,300</b></div></div></div></section>
+    <!-- SOLUTION -->
+    <section class="section-tight" id="platform">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> THE SOLUTION</span>
+          <h2 class="headline">One control layer for your entire last mile.</h2>
+          <p class="subhead">LANKA FLOW sits between your business and delivery supply. Orders come in, the platform orchestrates the work, and customers get a professional delivery experience.</p>
+        </div>
 
-<section class="sec muted"><div class="wrap"><h2>See your delivery operation, not just your orders.</h2>
-<div class="grid2">
-<figure class="card"><figcaption>On-time delivery, last 7 days (demo)</figcaption>
-<svg viewBox="0 0 300 140" role="img" aria-label="Line chart of on-time delivery rising from 88 to 94 percent"><path d="M10 100 L60 90 L110 95 L160 70 L210 60 L260 45 L290 38" fill="none" stroke="#2563EB" stroke-width="3" class="route2" pathLength="1"/><g fill="#2563EB"><circle cx="290" cy="38" r="4"/></g><path d="M10 130H290" stroke="#E2E8F0"/></svg></figure>
-<figure class="card"><figcaption>Deliveries by zone (demo)</figcaption>
-<div class="bars"><span style="--h:90%">Col 03</span><span style="--h:70%">Col 05</span><span style="--h:55%">Nugegoda</span><span style="--h:40%">Rajagiriya</span><span style="--h:30%">Dehiwala</span></div></figure></div>
-<ul class="chips l"><li>On-time delivery</li><li>Average delivery time</li><li>Failed deliveries</li><li>COD collected</li><li>Cost per delivery</li></ul></div></section>
+        <div class="architecture reveal reveal-delay-1">
+          <svg class="arch-svg" viewBox="0 0 1200 460" preserveAspectRatio="none" aria-hidden="true">
+            <path class="arch-path" d="M240 88 C350 88,390 150,478 150 S660 150,720 150 S900 88,1030 88"/>
+            <path class="arch-path" d="M240 228 C360 228,405 214,490 214 S660 214,720 214 S895 228,1030 228"/>
+            <path class="arch-path" d="M240 360 C355 360,390 286,485 286 S660 286,720 286 S900 360,1030 360"/>
+          </svg>
+          <div class="arch-row">
+            <div class="arch-group">
+              <div class="arch-title">Your business</div>
+              <div class="arch-stack">
+                <div class="arch-node">WhatsApp <span>DM</span></div>
+                <div class="arch-node">Instagram <span>DM</span></div>
+                <div class="arch-node">Website <span>API</span></div>
+                <div class="arch-node">Shopify <span>SYNC</span></div>
+                <div class="arch-node">POS <span>SYNC</span></div>
+              </div>
+            </div>
 
-<section class="sec" id="pricing"><div class="wrap"><h2>Pay for deliveries. Not for a fleet.</h2>
-<div class="grid3">
-<article class="card pr"><h3>Starter</h3><p>For small businesses.</p><ul><li>Pay per delivery</li><li>Basic tracking</li><li>COD records</li><li>Delivery dashboard</li></ul><button class="btn p" data-open="demo">Start delivering</button></article>
-<article class="card pr pop"><span class="tag">Most popular</span><h3>Growth</h3><p>For growing businesses.</p><ul><li>Priority dispatch</li><li>Branded tracking</li><li>Analytics</li><li>Bulk delivery creation</li><li>COD reconciliation</li></ul><button class="btn p" data-open="contact">Talk to us</button></article>
-<article class="card pr"><h3>Business</h3><p>For larger operations.</p><ul><li>API integration</li><li>Custom workflows</li><li>Advanced analytics</li><li>Dedicated support</li><li>Custom SLA</li></ul><button class="btn g2" data-open="contact">Contact sales</button></article></div>
-<p class="c">Custom pricing based on zone, volume and delivery requirements.</p></div></section>
+            <div class="arch-core">
+              <div>
+                <div class="core-mark">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 18c3-5 6-8 11-12"/><path d="M9 18c2-3 4-4 8-5"/><path d="M15 6h3v3"/></svg>
+                </div>
+                <h3>LANKA FLOW</h3>
+                <p>One infrastructure layer.</p>
+                <div class="core-chips"><span>Orders</span><span>Dispatch</span><span>Tracking</span><span>COD</span><span>Analytics</span></div>
+              </div>
+            </div>
 
-<section class="sec muted" id="faq"><div class="wrap narrow"><h2>Questions, answered.</h2><div id="acc"></div></div></section>
+            <div class="arch-group">
+              <div class="arch-title">Delivery supply</div>
+              <div class="arch-stack">
+                <div class="arch-node">Own Riders <span>LIVE</span></div>
+                <div class="arch-node">Fleet Partners <span>LIVE</span></div>
+                <div class="arch-node">Couriers <span>LIVE</span></div>
+                <div class="arch-node">Dedicated Drivers <span>OPTION</span></div>
+                <div class="arch-node">Customer <span>TRACK</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="sec dark fin"><div class="wrap c"><h2>Your next 1,000 deliveries shouldn't require 20 new riders.</h2>
-<p class="lead">Build the business. Let LANKA FLOW handle the delivery infrastructure.</p>
-<div class="cta j"><button class="btn p" data-open="demo">Start delivering</button><button class="btn g" data-open="contact">Talk to our team</button></div></div></section>
-</main>
+    <!-- WORKFLOW -->
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> THE DELIVERY JOURNEY</span>
+          <h2 class="headline">From order to doorstep.</h2>
+          <p class="subhead">Every step is visible, measurable and designed to run with less manual coordination.</p>
+        </div>
 
-<footer class="foot"><div class="wrap fg">
-<div><b>LANKA FLOW</b><p>Delivery infrastructure for businesses.</p></div>
-<div><h4>Platform</h4><a href="#workflow">How it works</a><a href="#solutions">Solutions</a><a href="#pricing">Pricing</a><button class="link" data-open="soon">API</button></div>
-<div><h4>Resources</h4><button class="link" data-open="soon">Documentation</button><button class="link" data-open="soon">Help Center</button><button class="link" data-open="contact">Contact</button></div>
-<div><h4>Company</h4><button class="link" data-open="soon">About</button><button class="link" data-open="soon">Careers</button><button class="link" data-open="soon">Privacy</button><button class="link" data-open="soon">Terms</button></div>
-</div><div class="wrap small">© 2026 LANKA FLOW · Sri Lanka</div></footer>
+        <div class="workflow reveal reveal-delay-1">
+          <div class="workflow-nav" id="workflowNav">
+            <button class="wf-btn active" data-step="0"><span class="wf-num">01</span><span class="label">ORDER</span></button>
+            <button class="wf-btn" data-step="1"><span class="wf-num">02</span><span class="label">DISPATCH</span></button>
+            <button class="wf-btn" data-step="2"><span class="wf-num">03</span><span class="label">PICKUP</span></button>
+            <button class="wf-btn" data-step="3"><span class="wf-num">04</span><span class="label">TRACK</span></button>
+            <button class="wf-btn" data-step="4"><span class="wf-num">05</span><span class="label">DELIVER</span></button>
+          </div>
 
-<button class="fab btn p" data-open="demo">Try demo</button>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="modal" id="modal" hidden><div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mt"><button class="x" id="mx" aria-label="Close">×</button><div id="mc"></div></div></div>
-<script src="js/app.js"></script>
-</body></html>
+          <div class="wf-stage" id="workflowStage">
+            <div class="wf-stage-top"><strong id="wfTitle">New order received</strong><span id="wfMeta">Order #58291 · WhatsApp</span></div>
+            <div class="stage-screen">
+              <div class="stage-main">
+                <div class="stage-status">
+                  <div><div class="big" id="wfBig">ORDER RECEIVED</div><div style="font-size:10px;color:var(--muted);margin-top:4px" id="wfDesc">A new order is ready to be dispatched.</div></div>
+                  <span class="pill blue" id="wfPill">NEW</span>
+                </div>
+                <div class="stage-map">
+                  <div class="stage-path"></div><div class="stage-pin s1"></div><div class="stage-pin s2"></div><div class="stage-pin s3"></div>
+                  <div style="position:absolute;left:12%;top:19%;font-size:8px;color:var(--muted);font-weight:800">COLOMBO 05</div>
+                  <div style="position:absolute;left:48%;top:68%;font-size:8px;color:var(--muted);font-weight:800">NUGEGODA</div>
+                  <div style="position:absolute;right:11%;top:24%;font-size:8px;color:var(--muted);font-weight:800">RAJAGIRIYA</div>
+                </div>
+                <button class="btn btn-primary stage-button" data-demo>Simulate this delivery</button>
+              </div>
+              <div class="stage-side">
+                <div class="state-card"><div class="label">Customer</div><h4 id="wfCustomer">Nimal Perera</h4><p id="wfCustomerSub">077 123 4567</p></div>
+                <div class="state-card"><div class="label">Route</div><h4 id="wfRoute">Colombo 05 → Nugegoda</h4><p id="wfRouteSub">2.8 km estimated</p></div>
+                <div class="state-card"><div class="label" id="wfSideLabel">Order value</div><h4 id="wfAmount">Rs. 6,450</h4><p id="wfSideSub">Cash on delivery</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT -->
+    <section class="section-tight" id="product">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> THE PRODUCT</span>
+          <h2 class="headline">Your delivery control room.</h2>
+          <p class="subhead">One place for orders, riders, active routes, COD and delivery performance.</p>
+        </div>
+
+        <div class="product-shell reveal reveal-delay-1">
+          <div class="product-app">
+            <aside class="app-sidebar">
+              <div class="app-mini-brand"><i></i> LANKA FLOW</div>
+              <nav class="app-nav">
+                <a href="#" class="active">Overview</a><a href="#">Deliveries</a><a href="#">Orders</a><a href="#">Riders</a><a href="#">Customers</a><a href="#">Payments</a><a href="#">Analytics</a><a href="#">Settings</a>
+              </nav>
+              <div class="app-footer-note">Demo environment<br/>Sample operational data only.</div>
+            </aside>
+            <div class="app-main">
+              <div class="app-top">
+                <div class="app-top-left"><strong>Good morning, Urban Cart</strong><small>Thursday, 8 October · Colombo operations</small></div>
+                <div class="app-top-actions"><button class="app-icon" title="Search">⌕</button><button class="app-icon" title="Notifications">◌</button><button class="app-icon" title="Profile">UP</button></div>
+              </div>
+
+              <div class="app-metric-grid">
+                <div class="app-metric"><small>Deliveries</small><strong>127</strong><span>+14% today</span></div>
+                <div class="app-metric"><small>Active</small><strong>24</strong><span>6 riders nearby</span></div>
+                <div class="app-metric"><small>On time</small><strong>94%</strong><span>+2.1 pts</span></div>
+                <div class="app-metric"><small>COD</small><strong>284K</strong><span>Rs. 284,650</span></div>
+              </div>
+
+              <div class="app-body">
+                <div class="app-card">
+                  <div style="display:flex;align-items:center;justify-content:space-between"><h4>Live delivery network</h4><span class="pill green">24 active</span></div>
+                  <div class="dash-map">
+                    <div class="zone z1"></div><div class="zone z2"></div><div class="zone z3"></div>
+                    <div class="map-street ms1"></div><div class="map-street ms2"></div><div class="map-street ms3"></div><div class="map-street ms4"></div>
+                    <div class="dash-route dr1"></div><div class="dash-route dr2"></div><div class="dash-route dr3"></div>
+                    <div class="rider-dot rd1"></div><div class="rider-dot rd2"></div><div class="rider-dot rd3"></div><div class="rider-dot rd4"></div>
+                    <span class="map-city mc1">COLOMBO 05</span><span class="map-city mc2">NUGEGODA</span><span class="map-city mc3">DEHIWALA</span><span class="map-city mc4">COLOMBO 03</span><span class="map-city mc5">RAJAGIRIYA</span>
+                  </div>
+                </div>
+                <div class="right-stack">
+                  <div class="app-card">
+                    <h4>Recent deliveries</h4>
+                    <div class="delivery-list">
+                      <div class="delivery-row"><div><strong>#58291 · Nugegoda</strong><small>18 min ETA · Kasun</small></div><div class="delivery-status">OUT</div></div>
+                      <div class="delivery-row"><div><strong>#58290 · Dehiwala</strong><small>Picked up · Dilan</small></div><div class="delivery-status">PICKED</div></div>
+                      <div class="delivery-row"><div><strong>#58289 · Rajagiriya</strong><small>Delivered · Tharindu</small></div><div class="delivery-status">DONE</div></div>
+                      <div class="delivery-row"><div><strong>#58288 · Colombo 06</strong><small>7 min ETA · Sahan</small></div><div class="delivery-status">OUT</div></div>
+                    </div>
+                  </div>
+                  <div class="app-card">
+                    <div style="display:flex;align-items:center;justify-content:space-between"><h4>Delivery trend</h4><span style="font-size:9px;color:var(--green)">+8.4%</span></div>
+                    <div class="mini-chart">
+                      <svg viewBox="0 0 250 125" preserveAspectRatio="none">
+                        <path class="chart-grid" d="M0 20H250M0 50H250M0 80H250M0 110H250"/>
+                        <polyline class="line" points="0,92 28,82 50,88 72,58 95,67 118,44 140,50 162,30 185,39 208,22 230,30 250,12"/>
+                        <circle class="chart-dot" cx="250" cy="12" r="4"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px">
+                <div class="app-card"><h4>Settlement status</h4><div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px"><strong style="font-size:24px">Rs. 242,300</strong><span class="pill green">READY</span></div></div>
+                <div class="app-card"><h4>Average dispatch</h4><div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px"><strong style="font-size:24px">4.2 min</strong><span style="font-size:9px;color:var(--muted)">Target &lt; 5 min</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section class="section" id="solutions">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> BUSINESS SOLUTIONS</span>
+          <h2 class="headline">One infrastructure layer.<br>Many business models.</h2>
+          <p class="subhead">Whether the order starts in a checkout, a DM, a phone call or a POS, the delivery experience should feel like one system.</p>
+        </div>
+
+        <div class="bento">
+          <div class="bento-card large reveal">
+            <span class="tag">E-COMMERCE</span>
+            <div class="mini-icon">EC</div>
+            <h3>Turn every checkout into a trackable delivery.</h3>
+            <p>Bulk delivery creation, customer tracking, dispatch visibility and COD reconciliation without a separate logistics team.</p>
+            <div class="tiny-metrics"><span>42 orders</span><span>18 active</span><span>93% on time</span></div>
+            <div class="bento-viz"><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bento-card medium reveal reveal-delay-1">
+            <span class="tag">SOCIAL COMMERCE</span>
+            <div class="mini-icon">DM</div>
+            <h3>WhatsApp and Instagram orders, operationalized.</h3>
+            <p>Turn messy conversations into structured delivery jobs.</p>
+            <div class="bento-viz" style="left:20%;right:18%;bottom:18px;height:82px"><div style="display:grid;gap:7px"><span class="pill blue">WhatsApp · #58291</span><span class="pill">Instagram · #58292</span><span class="pill green">Dispatched · Kasun</span></div></div>
+          </div>
+          <div class="bento-card small reveal">
+            <span class="tag">RETAIL</span>
+            <div class="mini-icon">RT</div>
+            <h3>Turn every store into a delivery hub.</h3>
+            <p>Send local orders from the nearest location.</p>
+          </div>
+          <div class="bento-card small reveal reveal-delay-1">
+            <span class="tag">RESTAURANTS</span>
+            <div class="mini-icon">FD</div>
+            <h3>Keep your orders. We'll handle the last mile.</h3>
+            <p>Peak-hour dispatch without hiring a permanent fleet.</p>
+          </div>
+          <div class="bento-card small reveal reveal-delay-2">
+            <span class="tag">GROCERY</span>
+            <div class="mini-icon">GR</div>
+            <h3>Coordinate fast local drops.</h3>
+            <p>Zone-aware dispatch for dense neighborhoods.</p>
+          </div>
+          <div class="bento-card medium reveal">
+            <span class="tag">PHARMACY</span>
+            <div class="mini-icon">RX</div>
+            <h3>Make time-sensitive local delivery measurable.</h3>
+            <p>Use verified delivery steps, rider assignment and proof of delivery for every job.</p>
+            <div class="bento-viz" style="left:52%;right:18%;bottom:18px;height:84px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:8px;color:var(--muted)">Priority route</span><span class="pill green">14 min</span></div>
+              <div style="height:6px;border-radius:999px;background:linear-gradient(90deg,var(--primary) 0 62%,rgba(255,255,255,.08) 62%);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NETWORK -->
+    <section class="section-tight" id="network">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> DELIVERY NETWORK</span>
+          <h2 class="headline">Your business.<br>Our delivery network.</h2>
+          <p class="subhead">The platform can orchestrate different sources of delivery supply instead of forcing every business into a single fleet model.</p>
+        </div>
+
+        <div class="network reveal reveal-delay-1">
+          <svg class="net-svg" viewBox="0 0 1200 530" preserveAspectRatio="none" aria-hidden="true">
+            <path class="net-line" d="M140 100 C330 120,350 210,500 240"/><path class="net-line" d="M1060 100 C880 120,840 215,700 245"/>
+            <path class="net-line" d="M140 430 C330 380,370 315,500 280"/><path class="net-line" d="M1060 430 C900 380,840 315,700 280"/>
+            <path class="net-line" d="M600 90 C600 150,600 170,600 205"/><path class="net-line" d="M600 325 C600 385,600 405,600 450"/>
+          </svg>
+          <div class="network-center">
+            <div>
+              <div class="core-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 18c3-5 6-8 11-12"/><path d="M9 18c2-3 4-4 8-5"/><path d="M15 6h3v3"/></svg></div>
+              <h3>Smart dispatch</h3><p>Best route · best supply · best fit</p>
+            </div>
+          </div>
+          <div class="net-node nn1"><strong>OWN RIDERS</strong><small>Dedicated fleet</small></div>
+          <div class="net-node nn2"><strong>FLEET PARTNERS</strong><small>On-demand capacity</small></div>
+          <div class="net-node nn3"><strong>COURIERS</strong><small>Service coverage</small></div>
+          <div class="net-node nn4"><strong>DEDICATED DRIVERS</strong><small>Merchant-specific SLA</small></div>
+          <div class="net-node nn5"><strong>ZONE MATCHING</strong><small>Distance · ETA · cost</small></div>
+          <div class="net-node nn6"><strong>CUSTOMER TRACKING</strong><small>Live status · POD</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COD -->
+    <section class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> CASH FLOW</span>
+          <h2 class="headline">Delivery ends when the money is reconciled.</h2>
+          <p class="subhead">Track COD collection, delivery fees and settlement status alongside the operational delivery journey.</p>
+        </div>
+
+        <div class="finance-shell">
+          <div class="finance-card reveal">
+            <span class="eyebrow"><span class="dot"></span> TODAY'S SETTLEMENT</span>
+            <div class="finance-value">Rs. <span class="counter" data-count="284650">0</span></div>
+            <div class="finance-caption">Illustrative prototype data. Your actual settlement depends on delivered orders, fees and adjustments.</div>
+            <div class="ledger">
+              <div class="ledger-row"><div><strong>COD collected</strong><small>127 delivered orders</small></div><b>Rs. 284,650</b></div>
+              <div class="ledger-row"><div><strong>Delivery fees</strong><small>Zone + distance based</small></div><b>− Rs. 38,100</b></div>
+              <div class="ledger-row"><div><strong>Adjustments</strong><small>Refunds / exceptions</small></div><b>− Rs. 4,250</b></div>
+            </div>
+            <div class="settlement"><div class="settlement-top"><span>NET SETTLEMENT</span><b>READY</b></div><div class="settlement-total">Rs. 242,300</div></div>
+          </div>
+          <div class="finance-mini">
+            <div class="finance-stat reveal reveal-delay-1"><small>Payment visibility</small><strong>127</strong><span>COD events matched to delivered orders.</span></div>
+            <div class="finance-stat reveal reveal-delay-2"><small>Reconciliation</small><strong>1 view</strong><span>See delivery fees, adjustments and settlement status together.</span></div>
+            <div class="finance-stat reveal reveal-delay-3"><small>Proof of delivery</small><strong>OTP + POD</strong><span>Capture a clear completion signal for every delivery.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="section-tight">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> OPERATIONS ANALYTICS</span>
+          <h2 class="headline">See what your delivery operation is actually doing.</h2>
+          <p class="subhead">Measure the things that matter when delivery becomes part of the customer experience.</p>
+        </div>
+
+        <div class="analytics reveal reveal-delay-1">
+          <div class="analytics-head"><strong>Delivery performance · Last 30 days</strong><span>Prototype analytics · sample data</span></div>
+          <div class="analytics-grid">
+            <div class="chart-box">
+              <h4>Deliveries per day</h4>
+              <div class="big-chart">
+                <svg viewBox="0 0 700 280" preserveAspectRatio="none">
+                  <path class="axis" d="M30 20V245H680"/>
+                  <path class="axis" d="M30 70H680M30 120H680M30 170H680M30 220H680"/>
+                  <polyline class="big-line" points="30,195 70,180 110,189 150,155 190,166 230,132 270,143 310,118 350,126 390,94 430,103 470,78 510,90 550,61 590,70 630,45 680,53"/>
+                  <circle class="chart-dot" cx="680" cy="53" r="5"/>
+                </svg>
+              </div>
+            </div>
+            <div class="chart-box">
+              <h4>Delivery mix</h4>
+              <div class="donut-wrap"><div class="donut"></div><div class="donut-label"><strong>94%</strong><span>On time</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> HOW IT WORKS</span>
+          <h2 class="headline">Start delivering without building a delivery team.</h2>
+          <p class="subhead">Connect your order channels, dispatch through one platform, and keep the customer informed until the delivery is complete.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal"><div class="step-num">01</div><h3>Connect</h3><p>Bring in orders from WhatsApp, websites, Shopify, POS systems, APIs or a simple manual form.</p><div class="step-line"></div><span class="step-arrow">→</span></div>
+          <div class="step reveal reveal-delay-1"><div class="step-num">02</div><h3>Dispatch</h3><p>Choose the right delivery option based on location, ETA, cost and available supply.</p><div class="step-line"></div><span class="step-arrow">→</span></div>
+          <div class="step reveal reveal-delay-2"><div class="step-num">03</div><h3>Deliver</h3><p>Customer tracking, proof of delivery, COD recording and settlement stay in one operational flow.</p><div class="step-line"></div><span class="step-arrow">✓</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section-tight" id="pricing">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> PRICING</span>
+          <h2 class="headline">Pay for deliveries.<br>Not for a fleet.</h2>
+          <p class="subhead">Early pricing can be tailored around delivery volume, zones, vehicle requirements and service level.</p>
+        </div>
+
+        <div class="pricing">
+          <div class="price-card reveal">
+            <h3>Starter</h3><p>For small businesses getting serious about delivery.</p>
+            <div class="price-note">Custom</div><div class="price-small">Based on delivery volume</div>
+            <ul class="price-list"><li><i>✓</i><span>Pay-per-delivery model</span></li><li><i>✓</i><span>Basic tracking</span></li><li><i>✓</i><span>COD records</span></li><li><i>✓</i><span>Delivery dashboard</span></li></ul>
+            <button class="btn btn-ghost" style="width:100%" data-demo>Start delivering</button>
+          </div>
+
+          <div class="price-card pop reveal reveal-delay-1">
+            <span class="price-badge">MOST POPULAR</span>
+            <h3>Growth</h3><p>For businesses handling deliveries every day.</p>
+            <div class="price-note">Custom</div><div class="price-small">Volume + zone based</div>
+            <ul class="price-list"><li><i>✓</i><span>Priority dispatch</span></li><li><i>✓</i><span>Branded tracking</span></li><li><i>✓</i><span>Analytics</span></li><li><i>✓</i><span>Bulk delivery creation</span></li><li><i>✓</i><span>COD reconciliation</span></li></ul>
+            <button class="btn btn-primary" style="width:100%" data-contact>Talk to us</button>
+          </div>
+
+          <div class="price-card reveal reveal-delay-2">
+            <h3>Business</h3><p>For larger operations that need deeper integration.</p>
+            <div class="price-note">Custom</div><div class="price-small">Tailored SLA and integration</div>
+            <ul class="price-list"><li><i>✓</i><span>API integration</span></li><li><i>✓</i><span>Custom workflows</span></li><li><i>✓</i><span>Advanced analytics</span></li><li><i>✓</i><span>Dedicated support</span></li><li><i>✓</i><span>Custom SLA</span></li></ul>
+            <button class="btn btn-ghost" style="width:100%" data-contact>Contact sales</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span> FAQ</span>
+          <h2 class="headline">Questions, before the first delivery.</h2>
+        </div>
+        <div class="faq reveal reveal-delay-1">
+          <div class="faq-item"><button class="faq-q">What is LANKA FLOW?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>LANKA FLOW is a B2B delivery infrastructure platform designed to help businesses manage dispatch, tracking, proof of delivery, COD and analytics without building and operating an entire delivery fleet themselves.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Do I need my own riders?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>No. The product is designed around flexible delivery supply. A future production implementation could orchestrate merchant riders, partner fleets and courier providers where integrations and commercial agreements exist.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Can customers track their deliveries?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>Yes. The intended experience includes a lightweight customer tracking page with order status, rider assignment, ETA and delivery completion.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Does it support cash on delivery?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>COD is a core product workflow: record the expected amount, mark collection at delivery, attach proof and make settlement status visible to the merchant.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Can I connect WhatsApp orders?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>The prototype demonstrates the workflow. A production product would connect supported WhatsApp Business tooling or allow merchants to structure orders received through WhatsApp.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Can I integrate my website or Shopify store?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>That is the intended architecture. Orders can eventually arrive through ecommerce integrations, APIs or manual creation depending on the merchant's setup.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">How does dispatch decide which rider gets an order?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>A production dispatch engine could score available supply using zone, estimated pickup time, distance, service level, vehicle type, merchant rules and delivery cost.</p></div></div></div>
+          <div class="faq-item"><button class="faq-q">Where is the product available?<span class="faq-icon">+</span></button><div class="faq-a"><div><p>This prototype is positioned for Sri Lanka, with Colombo and the Western Province as a practical starting market. Actual launch coverage would depend on supply, operating partners and regulatory requirements.</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="contact">
+      <div class="container">
+        <div class="final-box reveal">
+          <div class="route-bg">
+            <svg viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 390 C160 250 230 420 390 300 S640 80 800 230 S1040 380 1200 180"/>
+              <path d="M0 120 C180 250 320 75 520 205 S900 410 1200 105"/>
+            </svg>
+          </div>
+          <span class="eyebrow" style="position:relative;z-index:2"><span class="dot"></span> THE NEXT STEP</span>
+          <h2 class="headline">Build the business.<br><span class="grad">We'll handle the last mile.</span></h2>
+          <p class="subhead">Your operation shouldn't become more complicated just because your order volume does.</p>
+          <div class="final-actions">
+            <button class="btn btn-primary" data-demo>Start delivering ↗</button>
+            <button class="btn btn-ghost" data-contact>Talk to our team</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 18c3-5 6-8 11-12"/><path d="M9 18c2-3 4-4 8-5"/><path d="M15 6h3v3"/></svg></span><span class="brand-text">LANKA <span>FLOW</span></span></a><p>Delivery infrastructure for businesses. A product prototype for a smarter last-mile operating layer in Sri Lanka.</p></div>
+        <div class="footer-col"><h4>Platform</h4><a href="#platform">Platform</a><a href="#workflow">Workflow</a><a href="#network">Network</a><a href="#pricing">Pricing</a></div>
+        <div class="footer-col"><h4>Solutions</h4><a href="#solutions">E-commerce</a><a href="#solutions">Retail</a><a href="#solutions">Restaurants</a><a href="#solutions">Social commerce</a></div>
+        <div class="footer-col"><h4>Company</h4><a href="#contact">Contact</a><a href="#">About</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 LANKA FLOW. Prototype.</span><span>Sri Lanka · Colombo-first concept</span></div>
+    </div>
+  </footer>
+
+  <!-- Demo Modal -->
+  <div class="modal-backdrop" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div><h3 id="demoTitle">Try the delivery platform</h3><p>Create a fictional delivery to experience the workflow.</p></div>
+        <button class="close-btn" data-close aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-step active" id="demoStep1">
+          <div class="form-grid">
+            <div class="field"><label for="custName">Customer</label><input id="custName" value="Nimal Perera" /></div>
+            <div class="field"><label for="custPhone">Phone</label><input id="custPhone" value="077 123 4567" /></div>
+            <div class="field"><label for="pickup">Pickup</label><input id="pickup" value="Colombo 05" /></div>
+            <div class="field"><label for="drop">Drop-off</label><input id="drop" value="Nugegoda" /></div>
+            <div class="field"><label for="package">Package</label><input id="package" value="2 products · 1.2 kg" /></div>
+            <div class="field"><label for="cod">COD amount</label><input id="cod" value="Rs. 6,450" /></div>
+          </div>
+          <div class="modal-actions"><button class="btn btn-primary" id="findRider">Find rider →</button></div>
+        </div>
+        <div class="demo-step" id="demoStep2">
+          <div class="demo-loader"><div class="spinner"></div><strong style="margin-top:14px">Analyzing delivery options…</strong><span style="font-size:10px;color:var(--muted);margin-top:5px">Checking proximity, ETA and available supply.</span></div>
+        </div>
+        <div class="demo-step" id="demoStep3">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:9px">3 RIDERS AVAILABLE</div>
+          <div class="ledger">
+            <div class="ledger-row"><div><strong>Kasun</strong><small>7 min · Bike · Colombo 05</small></div><b>Rs. 320</b></div>
+            <div class="ledger-row"><div><strong>Dilan</strong><small>11 min · Bike · Dehiwala</small></div><b>Rs. 300</b></div>
+            <div class="ledger-row"><div><strong>Tharindu</strong><small>15 min · Bike · Nugegoda</small></div><b>Rs. 280</b></div>
+          </div>
+          <div class="result-card" style="margin-top:14px"><h4>Recommended · Kasun</h4><p>Best balance of pickup ETA and route fit for this prototype.</p></div>
+          <div class="modal-actions"><button class="btn btn-primary" id="dispatchBtn">Dispatch delivery →</button></div>
+        </div>
+        <div class="demo-step" id="demoStep4">
+          <div class="result-card"><h4>Delivery created ✓</h4><p>Your fictional order has been assigned a route and tracking URL.</p>
+            <div class="result-link"><input id="trackingInput" readonly value="https://demo.lankaflow.lk/t/58291" /><button class="btn btn-ghost" id="copyTracking">Copy</button></div>
+          </div>
+          <div class="modal-actions"><button class="btn btn-primary" data-close>Done</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal-backdrop" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div><h3 id="contactTitle">Talk to our team</h3><p>This is a front-end prototype. No information is sent anywhere.</p></div>
+        <button class="close-btn" data-close aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="field"><label>Business name</label><input required placeholder="e.g. Urban Cart" /></div>
+            <div class="field"><label>Your name</label><input required placeholder="Your name" /></div>
+            <div class="field"><label>WhatsApp number</label><input required placeholder="07X XXX XXXX" /></div>
+            <div class="field"><label>Business type</label><select required><option value="">Select type</option><option>E-commerce</option><option>Restaurant</option><option>Retail</option><option>Pharmacy</option><option>Grocery</option><option>Social commerce</option><option>Other</option></select></div>
+            <div class="field"><label>Approx. deliveries / day</label><select><option>1–10</option><option>11–25</option><option>26–50</option><option>51–100</option><option>100+</option></select></div>
+            <div class="field"><label>Current delivery setup</label><select><option>Own riders</option><option>Courier partner</option><option>Both</option><option>Manual / ad-hoc</option></select></div>
+            <div class="field full"><label>Message</label><textarea placeholder="Tell us what your delivery operation looks like today."></textarea></div>
+          </div>
+          <div class="modal-actions"><button class="btn btn-ghost" type="button" data-close>Cancel</button><button class="btn btn-primary" type="submit">Request a conversation</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText">Done</span></div>
+
+  <script>
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+    // Theme
+    const savedTheme = localStorage.getItem('lanka-flow-theme');
+    if(savedTheme) document.documentElement.dataset.theme = savedTheme;
+    const themeToggle = $('#themeToggle');
+    themeToggle.addEventListener('click', ()=>{
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('lanka-flow-theme', next);
+      $('#themeIcon').innerHTML = next === 'dark'
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>'
+        : '<path d="M21 12.8A8.5 8.5 0 0 1 11.2 3 7.5 7.5 0 1 0 21 12.8Z"/>';
+    });
+
+    // Navbar + mobile menu
+    const nav = $('#navbar');
+    window.addEventListener('scroll', ()=>{
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, {passive:true});
+
+    const menuBtn = $('#menuBtn');
+    const mobilePanel = $('#mobilePanel');
+    menuBtn.addEventListener('click', ()=>{
+      const open = mobilePanel.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    $$('#mobilePanel a, #mobilePanel button').forEach(el=>el.addEventListener('click',()=>mobilePanel.classList.remove('open')));
+
+    // Smooth internal links
+    $$('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const target = $(a.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
+
+    // Reveal
+    const revealObserver = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+      });
+    }, {threshold:.12});
+    $$('.reveal').forEach(el=>revealObserver.observe(el));
+
+    // Counters
+    function animateCounter(el, end, duration=1100){
+      const start = performance.now();
+      const format = n => n.toLocaleString('en-LK');
+      function frame(now){
+        const p = Math.min(1,(now-start)/duration);
+        const eased = 1-Math.pow(1-p,3);
+        el.textContent = format(Math.floor(end*eased));
+        if(p<1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    const counterObserver = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target, end = Number(el.dataset.count || 0);
+          animateCounter(el,end);
+          counterObserver.unobserve(el);
+        }
+      });
+    },{threshold:.55});
+    $$('[data-count]').forEach(el=>counterObserver.observe(el));
+
+    // Workflow demo
+    const wfData = [
+      {title:'New order received',meta:'Order #58291 · WhatsApp',big:'ORDER RECEIVED',desc:'A new order is ready to be dispatched.',pill:'NEW',customer:'Nimal Perera',phone:'077 123 4567',route:'Colombo 05 → Nugegoda',routeSub:'2.8 km estimated',side:'Order value',amount:'Rs. 6,450',sideSub:'Cash on delivery'},
+      {title:'Finding the best rider',meta:'Route fit · ETA · cost',big:'MATCHING SUPPLY',desc:'Comparing available delivery options.',pill:'MATCHING',customer:'3 riders nearby',phone:'Best match · Kasun',route:'Colombo 05 → Nugegoda',routeSub:'7 min pickup ETA',side:'Recommended fee',amount:'Rs. 320',sideSub:'Bike · local route'},
+      {title:'Pickup confirmed',meta:'Rider assigned · Kasun',big:'PICKUP CONFIRMED',desc:'The order is now in the delivery network.',pill:'PICKED UP',customer:'Kasun · Rider',phone:'Bike · 077 555 0182',route:'Colombo 05 → Nugegoda',routeSub:'2.8 km remaining',side:'Package',amount:'2 products',sideSub:'1.2 kg · sealed'},
+      {title:'Out for delivery',meta:'Customer tracking active',big:'OUT FOR DELIVERY',desc:'Customer can see live status and ETA.',pill:'LIVE',customer:'Nimal Perera',phone:'Tracking link active',route:'Colombo 05 → Nugegoda',routeSub:'18 min ETA',side:'COD amount',amount:'Rs. 6,450',sideSub:'Due on delivery'},
+      {title:'Delivery completed',meta:'OTP verified · POD captured',big:'DELIVERED ✓',desc:'The order is complete and ready for settlement.',pill:'DONE',customer:'Nimal Perera',phone:'OTP 4721 verified',route:'Colombo 05 → Nugegoda',routeSub:'Delivered 16:42',side:'Settlement',amount:'Rs. 6,450',sideSub:'COD recorded'}
+    ];
+    function renderWf(i){
+      const d = wfData[i];
+      $('#wfTitle').textContent=d.title; $('#wfMeta').textContent=d.meta; $('#wfBig').textContent=d.big; $('#wfDesc').textContent=d.desc; $('#wfPill').textContent=d.pill;
+      $('#wfCustomer').textContent=d.customer; $('#wfCustomerSub').textContent=d.phone; $('#wfRoute').textContent=d.route; $('#wfRouteSub').textContent=d.routeSub; $('#wfSideLabel').textContent=d.side; $('#wfAmount').textContent=d.amount; $('#wfSideSub').textContent=d.sideSub;
+      $$('.wf-btn').forEach((b,idx)=>b.classList.toggle('active',idx===i));
+    }
+    $$('.wf-btn').forEach(btn=>btn.addEventListener('click',()=>renderWf(Number(btn.dataset.step))));
+
+    // FAQ
+    $$('.faq-item').forEach(item=>{
+      $('.faq-q',item).addEventListener('click',()=>{
+        $$('.faq-item').forEach(i=>{ if(i!==item)i.classList.remove('open'); });
+        item.classList.toggle('open');
+      });
+    });
+
+    // Toast
+    let toastTimer;
+    function showToast(msg){
+      $('#toastText').textContent=msg;
+      $('#toast').classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2400);
+    }
+
+    // Modal helpers
+    const demoModal = $('#demoModal');
+    const contactModal = $('#contactModal');
+    function openModal(modal){ modal.classList.add('show'); document.body.style.overflow='hidden'; }
+    function closeModal(modal){ modal.classList.remove('show'); document.body.style.overflow=''; }
+    $$('[data-demo]').forEach(btn=>btn.addEventListener('click',()=>{
+      openModal(demoModal);
+      $$('.demo-step').forEach(s=>s.classList.remove('active'));
+      $('#demoStep1').classList.add('active');
+    }));
+    $$('[data-contact]').forEach(btn=>btn.addEventListener('click',()=>openModal(contactModal)));
+    $$('[data-close]').forEach(btn=>btn.addEventListener('click',()=>{
+      const m=btn.closest('.modal-backdrop'); if(m) closeModal(m);
+    }));
+    [demoModal,contactModal].forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m)}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){[demoModal,contactModal].forEach(m=>closeModal(m))}});
+
+    // Demo flow
+    $('#findRider').addEventListener('click',()=>{
+      $$('.demo-step').forEach(s=>s.classList.remove('active')); $('#demoStep2').classList.add('active');
+      setTimeout(()=>{ $$('.demo-step').forEach(s=>s.classList.remove('active')); $('#demoStep3').classList.add('active'); },1250);
+    });
+    $('#dispatchBtn').addEventListener('click',()=>{
+      $$('.demo-step').forEach(s=>s.classList.remove('active')); $('#demoStep4').classList.add('active');
+    });
+    $('#copyTracking').addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText($('#trackingInput').value);showToast('Tracking link copied');}
+      catch{ $('#trackingInput').select(); document.execCommand('copy'); showToast('Tracking link copied'); }
+    });
+
+    // Contact form
+    $('#contactForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      $('#contactModal').querySelector('.modal-body').innerHTML = `
+        <div class="result-card" style="margin:10px 0 5px">
+          <h4>Thanks — request recorded ✓</h4>
+          <p>This prototype does not transmit form data. Connect your backend/API to make this a live lead flow.</p>
+        </div>
+        <div class="modal-actions"><button class="btn btn-primary" data-close>Done</button></div>
+      `;
+      $$('[data-close]', $('#contactModal')).forEach(btn=>btn.addEventListener('click',()=>closeModal(contactModal)));
+      showToast('Request recorded in prototype');
+    });
+
+    // Keyboard support for demo nav
+    document.querySelectorAll('.wf-btn').forEach(btn=>{
+      btn.addEventListener('keydown',e=>{
+        if(e.key==='Enter' || e.key===' '){e.preventDefault();btn.click();}
+      });
+    });
+  </script>
+</body>
+</html>
