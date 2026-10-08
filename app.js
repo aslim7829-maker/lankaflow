@@ -20,7 +20,7 @@ const S=[['New order',[['Customer','Nimal Perera'],['Location','Nugegoda'],['Ord
 ['Out for delivery',[['ETA','18 min'],['Customer tracking','Active']]],
 ['Delivered ✓',[['OTP','Verified'],['COD','Rs. 6,450'],['Proof of delivery','Captured']]]];
 const stage=$('#stage'),st=$$('.steps button');
-const show=i=>{st.forEach((b,j)=>{b.setAttribute('aria-selected',i===j);b.tabIndex=i===j?0:-1});const[h,r]=S[i];stage.style.animation='none';stage.offsetWidth;stage.style.animation='';stage.innerHTML=`<h3>${h}</h3><dl>${r.map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join('')}</dl>`};
+const show=i=>{st.forEach((b,j)=>{b.setAttribute('aria-selected',i===j);b.tabIndex=i===j?0:-1});const[h,r]=S[i];stage.style.animation='none';stage.offsetWidth;stage.style.animation='';stage.innerHTML=`<div class="prog">${S.map((_,j)=>`<i class="${j<=i?'on':''}"></i>`).join('')}</div><h3>${h}</h3><dl>${r.map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join('')}</dl>`};
 st.forEach((b,i)=>{b.textContent=`${i+1}. ${b.textContent}`;b.onclick=()=>show(i);b.onkeydown=e=>{const k={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(k){const n=(i+k+5)%5;show(n);st[n].focus()}}});show(0);
 /* solution tabs */
 const T={'E-commerce':['Handle dozens of daily orders without managing dozens of riders.','Bulk delivery creation|Customer tracking|COD reconciliation|Delivery analytics'],
